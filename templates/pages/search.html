@@ -1,0 +1,38 @@
+---
+product_results:
+  limit: {{theme_settings.product-count}}
+---
+
+{{#partial "page"}}
+  {{> components/breadcrumbs}}
+
+  {{#any content_results product_results.products}}
+    <h1 class="section-title products-section-title"> {{lang 'search.results.count' search_term=forms.search.query}}</h1>
+  {{else}}
+    {{#if forms.search.query}}
+      <h1 class="section-title products-section-title"> {{lang 'search.results.none' search_term=forms.search.query}}</h1>
+    {{else}}
+      <h1 class="section-title products-section-title"> {{lang 'search.results.no_search_term'}}</h1>
+    {{/if}}
+  {{/any}}
+
+  <section data-tabs>
+    <ul class="search-tabs">
+      <li class="search-tab-title tab-title">
+        <a href="#search-product-listing" class="search-tab-link" data-tab-link>
+          {{lang 'search.results.products' num=product_results.pagination.total}}
+        </a>
+      </li>
+      <li class="search-tab-title tab-title">
+        <a href="#search-content-listing" class="search-tab-link" data-tab-link>
+          {{lang 'search.results.content' num=pagination.content_results.total}}
+        </a>
+      </li>
+    </ul>
+    {{> components/search/products}}
+    {{> components/search/content}}
+  </section>
+
+{{/partial}}
+
+{{> layout/base}}

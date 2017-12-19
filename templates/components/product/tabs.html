@@ -1,0 +1,68 @@
+<section class="product-tabs" data-tabs>
+  <ul class="product-tabs-wrapper">
+    {{#if product.description}}
+      <li class="product-tab-title tab-title">
+        <a href="#description" class="product-tab-link" data-tab-link>
+          {{lang 'product.tabs.description'}}
+          <span class="product-tab-toggle" data-tab-toggle>
+            <span class="product-tab-toggle-icon"></span>
+          </span>
+        </a>
+        <div class="product-tabs-content product-tabs-content-mobile">
+          {{> components/product/tabs/description}}
+        </div>
+      </li>
+    {{/if}}
+    {{#if settings.show_product_reviews}}
+      <li class="product-tab-title tab-title">
+        <a href="#reviews" class="product-tab-link" data-tab-link>
+          {{lang 'product.tabs.reviews'}}
+          <span class="num-reviews" data-num-reviews="({{product.reviews.list.length}})"></span>
+          <span class="product-tab-toggle" data-tab-toggle>
+            <span class="product-tab-toggle-icon"></span>
+          </span>
+        </a>
+        <div class="product-tabs-content product-tabs-content-mobile">
+          {{> components/product/tabs/reviews}}
+        </div>
+      </li>
+    {{/if}}
+      <li class="product-tab-title tab-title">
+        <a href="#details" class="product-tab-link" data-tab-link>
+          {{lang 'product.tabs.details.title'}}
+          <span class="product-tab-toggle" data-tab-toggle>
+            <span class="product-tab-toggle-icon"></span>
+          </span>
+        </a>
+        <div class="product-tabs-content product-tabs-content-mobile">
+          {{> components/product/tabs/details}}
+        </div>
+      </li>
+    {{#if product.warranty}}
+      <li class="product-tab-title tab-title">
+        <a href="#warranty" class="product-tab-link" data-tab-link>
+          {{lang 'product.tabs.warranty'}}
+          <span class="product-tab-toggle" data-tab-toggle>
+            <span class="product-tab-toggle-icon"></span>
+          </span>
+        </a>
+        <div class="product-tabs-content product-tabs-content-mobile">
+          {{> components/product/tabs/warranty}}
+        </div>
+      </li>
+    {{/if}}
+    {{#if product.videos.list.length}}
+      <li class="product-tab-title tab-title">
+        <a href="#videos" class="product-tab-link" data-tab-link>
+          {{lang 'product.tabs.videos'}}
+          <span class="product-tab-toggle" data-tab-toggle>
+            <span class="product-tab-toggle-icon"></span>
+          </span>
+        </a>
+        <div class="product-tabs-content product-tabs-content-mobile">
+          {{> components/product/tabs/video}}
+        </div>
+      </li>
+    {{/if}}
+  </ul>
+</section>

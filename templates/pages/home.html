@@ -1,0 +1,40 @@
+---
+carousel: true
+cart: true
+products:
+  featured:
+    limit: {{theme_settings.homepage_featured_products_limit}}
+  new:
+    limit: {{theme_settings.homepage_new_products_limit}}
+  top_sellers:
+    limit: {{theme_settings.homepage_popular_products_limit}}
+blog:
+  recent_posts:
+    limit: {{theme_settings.homepage_blog_article_limit}}
+    summary: 250
+---
+
+{{#partial "page"}}
+
+  {{#if carousel}}
+    {{inject 'carouselDelay' carousel.swap_frequency}}
+  {{/if}}
+
+  {{#if products.featured}}
+    {{> components/product/products-featured products=products.featured theme_settings=theme_settings}}
+  {{/if}}
+  {{#if products.new}}
+    {{> components/product/products-new products=products.new theme_settings=theme_settings}}
+  {{/if}}
+  {{#if products.top_sellers}}
+    {{> components/product/products-popular products=products.top_sellers theme_settings=theme_settings}}
+  {{/if}}
+
+  {{#if settings.blog_enabled}}
+    {{#if theme_settings.homepage_blog_article_limit}}
+      {{> components/blog/recent-posts}}
+    {{/if}}
+  {{/if}}
+{{/partial}}
+
+{{> layout/base}}

@@ -1,0 +1,206 @@
+<section
+  class="product-details"
+  data-product-details
+  data-product-title="{{product.title}}"
+>
+  <form
+    class="form"
+    method="post"
+    action="{{product.cart_url}}"
+    enctype="multipart/form-data"
+    data-cart-item-add
+    {{#if customer}}data-is-customer{{/if}}
+    data-validated-form
+  >
+    <input type="hidden" name="action" value="add">
+    <input type="hidden" name="product_id" value="{{product.id}}" data-product-id>
+
+    <div class="product-details-top">
+      <div class="product-details-rating">
+        {{#if settings.show_product_rating}}
+          {{> components/reviews/ratings rating=product.rating}}
+        {{/if}}
+        {{#if settings.show_product_reviews}}
+          <a
+            href="{{#if quick_view}}{{product.url}}{{/if}}#reviews"
+            class="review-link"
+            {{#unless quick_view}}
+            data-scroll="#reviews"
+            data-reviews-link
+            {{/unless}}
+          >
+            {{lang 'product.reviews.review_count' numReviews=product.num_reviews}}
+          </a>
+        {{/if}}
+      </div>
+
+      {{#if product.brand}}
+        <a href="{{product.brand.url}}" class="product-brand">{{product.brand.name}}</a>
+      {{/if}}
+
+      {{#unless quick_view}}
+        {{#each product.reviews.messages}}
+          {{#if error}}
+            {{> core/alerts/alert-error message=error dismissable=true}}
+          {{/if}}
+          {{#if success}}
+            {{> core/alerts/alert-success message=success dismissable=true}}
+          {{/if}}
+        {{/each}}
+      {{/unless}}
+
+      <h1 class="product-title">{{product.title}}</h1>
+
+      <div class="product-details-price">
+        {{#if product.call_for_price}}
+          {{product.call_for_price}}
+        {{/if}}
+
+        {{#if product.price}}
+          {{> components/product/price
+            price=product.price
+            show_savings=true
+          }}
+        {{/if}}
+      </div>
+
+      {{#if theme_settings.product-extra-details-view '===' 'description'}}
+        <div class="product-extra-details">
+          {{#if product.sku}}
+            <div class="product-tab-details-item product-tab-details-sku">
+              <span class="product-tab-details-item-name">{{lang 'product.tabs.details.sku'}}</span>
+              <span class="product-tab-details-item-value" data-product-sku>{{product.sku}}</span>
+            </div>
+          {{/if}}
+          {{#if product.upc}}
+            <div class="product-tab-details-item product-tab-details-upc">
+              <span class="product-tab-details-item-name">{{lang 'product.tabs.details.upc'}}</span>
+              <span class="product-tab-details-item-value" data-product-upc>{{product.upc}}</span>
+            </div>
+          {{/if}}
+          {{#if product.gtin}}
+            <div class="product-tab-details-item product-tab-details-gtin">
+              <span class="product-tab-details-item-name">{{lang 'product.tabs.details.gtin'}}</span>
+              <span class="product-tab-details-item-value" data-product-sku>{{product.gtin}}</span>
+            </div>
+            {{/if}}
+            {{#if product.mpn}}
+            <div class="product-tab-details-item product-tab-details-mpn">
+              <span class="product-tab-details-item-name">{{lang 'product.tabs.details.mpn'}}</span>
+              <span class="product-tab-details-item-value" data-product-upc>{{product.mpn}}</span>
+            </div>
+          {{/if}}
+        </div>
+      {{/if}}
+
+      {{#if product.description}}
+        <div class="product-details-description-top">
+          <div
+            class="product-details-description-short has-excerpt"
+            data-excerpt-length="220"
+          >
+            {{{product.description}}}
+          </div>
+
+          {{#unless quick_view}}
+            {{#if product.description.length '>' 220}}
+              <a
+                class="product-description-read-more"
+                href="#description"
+                data-scroll="#description"
+                data-description-link
+              >
+                {{lang 'product.read_more'}}
+              </a>
+            {{/if}}
+          {{/unless}}
+        </div>
+      {{/if}}
+
+      {{> components/product/options}}
+      {{> components/common/quantity product}}
+    </div>{{! Product Details Top}}
+
+    {{! container for appending cart-add errors}}
+    <div class="product-alert" data-product-cart-message></div>
+    <div class="product-alert" data-product-message></div>
+
+    {{#if product.release_date}}
+      {{> components/alerts/alert-info product.release_date}}
+    {{/if}}
+
+    <div class="product-add-to-cart form-field" data-product-add>
+      {{#if product.can_purchase}}
+        {{#if product.out_of_stock}}
+          <input
+            class="button button-disabled"
+            type="submit"
+            value="{{lang 'product.sold_out'}}"
+            disabled
+          >
+        {{else}}
+          {{#if product.pre_order}}
+            <input
+              class="button button-primary"
+              type="submit"
+              value="{{lang 'product.pre_order'}}"
+              data-button-purchase
+              data-button-preorder
+            >
+          {{else}}
+            <input
+              class="button button-primary"
+              type="submit"
+              value="{{lang 'product.add_to_cart'}}"
+              data-button-purchase
+            >
+          {{/if}}
+        {{/if}}
+        {{#if quick_view}}
+          <a class="product-view" href="{{product.url}}">
+            {{lang 'product.view_product'}}
+          </a>
+        {{/if}}
+      {{else}}
+        <input
+          class="button button-disabled"
+          type="submit"
+          value="{{lang 'product.unavailable'}}"
+          disabled
+        >
+      {{/if}}
+      {{#if settings.account_creation_enabled}}
+        {{#if settings.show_wishlist}}
+          <div class="product-wishlist-add" {{#if customer}}data-is-customer{{/if}}>
+            {{#if customer.wishlists.length}}
+              <div class="button-wishlist-add" data-dropdown>
+                <a class="button button-secondary button-wishlist-add" href="#" data-dropdown-toggle>
+                  <svg class="star star-wishlist" title="{{lang 'core.account.wishlists.add_item'}}" role="img">
+                    <use xlink:href="#icon-star"></use>
+                  </svg>
+                </a>
+                <ul class="add-to-wishlists" data-dropdown-panel>
+                  {{#each customer.wishlists}}
+                    <li>
+                      <a href="{{../product.add_to_wishlist_url}}&wishlistid={{id}}" data-wishlist="{{view_url}}">
+                        {{name}} ({{num_items}})
+                      </a>
+                    </li>
+                  {{/each}}
+                </ul>
+              </div>
+            {{else}}
+              <a class="button button-secondary button-wishlist-add" href="{{product.add_to_wishlist_url}}">
+                <svg class="star star-wishlist" title="{{lang 'core.account.wishlists.add_item'}}" role="img">
+                  <use xlink:href="#icon-star"></use>
+                </svg>
+              </a>
+            {{/if}}
+          </div>
+        {{/if}}
+      {{/if}}
+      <span class="spinner"></span>
+    </div>
+
+  </form>
+</section>

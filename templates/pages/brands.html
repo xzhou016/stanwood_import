@@ -1,0 +1,37 @@
+---
+  brands: true
+---
+
+{{#partial "page"}}
+  {{> components/breadcrumbs}}
+
+  <h1 class="section-title">{{brand.name}}</h1>
+
+  <section class="brands-index">
+    <ul class="brands-list">
+      {{#each brands}}
+        {{#all ../theme_settings.show_brand_images image}}
+          <figure class="brand-item brand-image-container">
+            <a class="brand-link" href="{{url}}">
+              <img class="brand-image" src="{{getImage image 'small'}}" alt="{{name}}">
+            </a>
+          </figure>
+        {{else}}
+          <h3 class="brand-item brand-item-title">
+            <a class="brand-link" href="{{url}}">{{name}}</a>
+          </h3>
+        {{/all}}
+      {{/each}}
+
+      {{#for 1 3}}
+        <div class="brand-item"></div>
+      {{/for}}
+    </ul>
+  </section>
+
+  {{#if pagination.brands}}
+    {{> components/common/pagination pagination.brands}}
+  {{/if}}
+{{/partial}}
+
+{{> layout/base}}

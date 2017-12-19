@@ -1,0 +1,56 @@
+{{#partial "page"}}
+
+<article class="blog-post-single">
+  {{> components/breadcrumbs}}
+
+  {{#if blog.post.thumbnail}}
+    <figure class="blog-post-featured-image">
+        <img src="{{getImage blog.post.thumbnail '1562x500'}}" alt="{{blog.post.thumbnail.alt}}">
+    </figure>
+  {{/if}}
+
+  <div class="blog-post-single-inner">
+    <header class="blog-post-header">
+      <time class="blog-post-date">{{blog.post.date_published}}</time>
+
+      {{#if blog.post.author}}
+        <div class="blog-post-meta blog-post-author">
+          {{lang 'blog.posted_by'}} {{blog.post.author}}
+        </div>
+      {{/if}}
+
+      {{#if blog.post.tags.length}}
+        <div class="blog-post-tags">
+          {{#each blog.post.tags}}
+            <a href="{{url}}" title="{{lang 'blog.tag_permalink' tag=name}}">{{name}}</a>{{#unless @last}},&nbsp;{{/unless}}
+          {{/each}}
+        </div>
+      {{/if}}
+
+      <h1 class="blog-post-title">{{blog.post.title}}</h1>
+    </header>
+
+    <div class="blog-post-content rte">
+      {{{blog.post.body}}}
+    </div>
+  </div>
+
+  <aside class="blog-post-share">
+    {{> components/common/share-buttons
+      share_heading=true
+      url=blog.post.url
+      title=blog.post.title
+      share_type='blog-post'
+      share_buttons=settings.add_this
+      show_heading=false
+      image=(getImage blog.post.thumbnail 'share')
+    }}
+  </aside>
+
+</article>
+
+{{> core/structured-data/blog-post}}
+
+{{/partial}}
+
+{{> layout/base}}

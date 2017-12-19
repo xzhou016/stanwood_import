@@ -1,0 +1,25 @@
+<div
+  class="product-listing products-section-grid {{#if theme_settings.quick_view}}product-listing-quick-view{{/if}}"
+  data-listing-container
+  data-brand-products
+  {{#if brand.show_compare}}data-product-compare{{/if}}
+>
+
+  {{#if brand.products}}
+    {{#each brand.products}}
+      {{> components/product/product-item
+        settings=../theme_settings
+        show_compare=../brand.show_compare
+        prefix="brand"
+      }}
+    {{/each}}
+
+    {{#for 1 3}}
+      <div class="product-item product-item-empty"></div>
+    {{/for}}
+  {{else}}
+    <div class="product-listing-empty">
+      {{lang 'brand.empty'}}
+    </div>
+  {{/if}}
+</div>

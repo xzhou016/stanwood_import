@@ -1,0 +1,49 @@
+<hr class="blog-divider">
+
+<article class="blog-post">
+
+  <div class="blog-post-meta">
+    <time class="blog-post-date">{{date_published}}</time>
+
+    {{#if author}}
+      <div class="blog-post-author">
+        {{lang 'blog.posted_by'}} {{author}}
+      </div>
+    {{/if}}
+
+    <h2 class="blog-post-title">
+      <a href="{{url}}">{{title}}</a>
+    </h2>
+  </div>
+
+  <div class="blog-post-content rte {{#if summary}}summary{{/if}}">
+    {{#if summary}}
+
+      {{#if thumbnail}}
+        <p>
+          <a class="blog-post-thumbnail" href="{{url}}" title="{{thumbnail.alt}}">
+            <img src="{{getImage thumbnail 'product_zoom'}}" alt="{{thumbnail.alt}}">
+          </a>
+        </p>
+      {{/if}}
+
+      <p>{{{summary}}}</p>
+
+    {{else}}
+
+      <div class="rte">
+        {{#if thumbnail}}
+          <p>
+            <img src="{{getImage thumbnail 'product_zoom'}}" alt="{{thumbnail.alt}}">
+          </p>
+        {{/if}}
+
+        {{{body}}}
+      </div>
+
+    {{/if}}
+
+    <a href="{{url}}">{{lang 'blog.read_more'}}</a>
+  </div>
+
+</article>

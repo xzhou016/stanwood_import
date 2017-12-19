@@ -1,0 +1,27 @@
+<!--
+
+  Readonly star ratings
+
+-->
+
+{{#if settings.show_product_rating}}
+  <div class="product-rating">
+    <div class="rating-stars-readonly" aria-hidden="true">
+      {{#enumerate 1 5}}
+        {{#compare ../this.rating this operator='>='}}
+          <svg class="rating-star rating-star-full" role="presentation">
+            <use xlink:href="#icon-star"></use>
+          </svg>
+        {{else}}
+          <svg class="rating-star rating-star-empty" role="presentation">
+            <use xlink:href="#icon-star"></use>
+          </svg>
+        {{/compare}}
+      {{/enumerate}}
+    </div>
+    <span class="rating-total-score visually-hidden">{{this.rating}}</span>
+    {{#if this.total}}
+      <span class="rating-total-votes visually-hidden">(<a href="#">{{this.total}}</a>)</span>
+    {{/if}}
+  </div>
+{{/if}}

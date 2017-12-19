@@ -1,0 +1,388 @@
+{
+  "name": "Mogul",
+  "version": "1.1.0",
+  "meta": {
+    "composed_image": "mogul-composed.png",
+    "documentation_url": "http://support.pixelunion.net/category/409-mogul",
+    "author_name": "Pixel Union",
+    "author_email": "support@pixelunion.net",
+    "author_support_url": "http://support.pixelunion.net/",
+    "price": 19500,
+    "features": [
+      "fully_responsive",
+      "multi_tiered_sidebar_menu",
+      "frontpage_slideshow",
+      "quick_add_to_cart",
+      "product_comparison_table",
+      "free_customer_support",
+      "free_theme_upgrades",
+      "high_res_product_images",
+      "product_filtering",
+      "one_page_check_out",
+      "customized_checkout",
+      "product_videos",
+      "advanced_quick_view",
+      "complex_search_filtering"
+    ]
+  },
+  "css_compiler": "scss",
+  "autoprefixer_cascade": true,
+  "autoprefixer_browsers": [
+    "> 1%",
+    "last 3 versions",
+    "Firefox ESR"
+  ],
+  "resources": {
+    "blog": true,
+    "cart": true,
+    "brands": true,
+    "categories": true,
+    "shop_by_brand": {
+      "limit": 9
+    },
+    "customer": {
+      "wishlists": {
+        "limit": 10
+      }
+    }
+  },
+  "settings": {
+    "regular-font": "Google_Karla_400,700",
+    "heading-font": "Google_Libre+Baskerville_400,700",
+    "accent-color": "#761620",
+    "heading-color": "#333333",
+    "body-color": "#a3a3a3",
+    "background-color": "#ffffff",
+    "footer-text-color": "#ffffff",
+    "footer-background-color": "#333333",
+    "carousel-text-color": "#ffffff",
+    "promo-color": "#ffffff",
+    "promo-background-color": "#761620",
+    "heading_style": "none",
+    "show_categories": true,
+    "show_pages": true,
+    "show_home_link": false,
+    "category_display": "in_main_navigation",
+    "pages_first": false,
+    "carousel-aspect-ratio": "",
+    "homepage_featured_products_limit": 3,
+    "homepage_new_products_limit": 8,
+    "homepage_popular_products_limit": 0,
+    "homepage_blog_article_limit": 2,
+    "footer_list_one": "brands",
+    "footer_list_two": "pages",
+    "footer_show_sitemap": true,
+    "footer_show_copyright": true,
+    "footer_show_credits": true,
+    "show_visa_icon": true,
+    "show_amex_icon": true,
+    "show_paypal_icon": true,
+    "show_mastercard_icon": true,
+    "show_discover_icon": true,
+    "show_apple_pay_icon": true,
+    "apple_pay_style": "black",
+    "quick_view": true,
+    "grid_aspect_ratio": "four-by-five",
+    "grid_image_crop": "cover",
+    "product-reviews-count": 10,
+    "product-extra-details-view": "details",
+    "show_brand_images": true,
+    "_images": {
+      "logo": {
+        "width": 500,
+        "height": 200
+      },
+      "small": {
+        "width": 400,
+        "height": 400
+      },
+      "medium": {
+        "width": 800,
+        "height": 800
+      },
+      "large": {
+        "width": 1280,
+        "height": 1280
+      },
+      "zoom": {
+        "width": 2048,
+        "height": 2048
+      },
+      "core-swatch": {
+        "width": 200,
+        "height": 200
+      },
+      "core-product-picklist": {
+        "width": 80,
+        "height": 200
+      }
+    },
+    "default_image": "/assets/img/no-image.svg",
+    "default-product-image": "/assets/img/no-image.svg",
+    "product-count": 24,
+    "blog-posts-per-page": 4,
+    "optimizedCheckout-header-backgroundColor": "#f7f7f7",
+    "optimizedCheckout-show-backgroundImage": false,
+    "optimizedCheckout-backgroundImage": "",
+    "optimizedCheckout-backgroundImage-size": "1000x400",
+    "optimizedCheckout-show-logo": "none",
+    "optimizedCheckout-logo": "",
+    "optimizedCheckout-logo-size": "250x100",
+    "optimizedCheckout-logo-position": "left",
+    "optimizedCheckout-headingPrimary-color": "#2d2d2d",
+    "optimizedCheckout-headingPrimary-font": "Google_Montserrat_400",
+    "optimizedCheckout-headingSecondary-color": "#2d2d2d",
+    "optimizedCheckout-headingSecondary-font": "Google_Montserrat_400",
+    "optimizedCheckout-body-backgroundColor": "#ffffff",
+    "optimizedCheckout-contentPrimary-color": "#4f4f4f",
+    "optimizedCheckout-contentPrimary-font": "Google_Karla_400",
+    "optimizedCheckout-contentSecondary-color": "#989898",
+    "optimizedCheckout-contentSecondary-font": "Google_Karla_400",
+    "optimizedCheckout-buttonPrimary-font": "Google_Karla_400",
+    "optimizedCheckout-buttonPrimary-color": "#ffffff",
+    "optimizedCheckout-buttonPrimary-colorHover": "#ffffff",
+    "optimizedCheckout-buttonPrimary-backgroundColor": "#454545",
+    "optimizedCheckout-buttonPrimary-backgroundColorHover": "#666666",
+    "optimizedCheckout-buttonPrimary-borderColor": "#454545",
+    "optimizedCheckout-buttonPrimary-borderColorHover": "#666666",
+    "optimizedCheckout-buttonSecondary-font": "Google_Karla_400",
+    "optimizedCheckout-buttonSecondary-color": "#4f4f4f",
+    "optimizedCheckout-buttonSecondary-backgroundColor": "#ffffff",
+    "optimizedCheckout-buttonSecondary-borderColor": "#dfdfdf",
+    "optimizedCheckout-link-color": "#4496f6",
+    "optimizedCheckout-link-font": "Google_Karla_400",
+    "optimizedCheckout-discountBanner-backgroundColor": "#f5f5f5",
+    "optimizedCheckout-discountBanner-textColor": "#333333",
+    "optimizedCheckout-discountBanner-iconColor": "#333333",
+    "optimizedCheckout-orderSummary-backgroundColor": "#ffffff",
+    "optimizedCheckout-step-backgroundColor": "#4f4f4f",
+    "optimizedCheckout-step-textColor": "#ffffff",
+    "optimizedCheckout-formField-backgroundColor": "white",
+    "optimizedCheckout-formField-borderColor": "#989898"
+  },
+  "variations": [
+    {
+      "name": "Classic",
+      "id": "classic",
+      "meta": {
+        "desktop_screenshot": "mogul-classic-desktop.png",
+        "mobile_screenshot": "mogul-classic-mobile.png",
+        "description": "Mogul is a fresh and versatile theme for growing brands. Its persistent left hand navigation and extensible subcategory menus elegantly support large catalogs, while its clean design and merchandisable homepage sections make it a great choice for a wide variety of product types and industries.",
+        "demo_url": "http://mogul-classic-demo.mybigcommerce.com/",
+        "features": [
+          "fully_responsive",
+          "multi_tiered_sidebar_menu",
+          "homepage_slideshow",
+          "quick_add_to_cart",
+          "Product_comparison_table",
+          "free_customer_support",
+          "free_theme_upgrades",
+          "supports_high_res_product_images",
+          "product_filtering",
+          "one_page_check_out",
+          "customized_checkout",
+          "product_videos",
+          "advanced_quick_view",
+          "customizable_discount_banners",
+          "dropdown_menus_up_to_8_levels",
+          "product_image_zoom",
+          "share_widget",
+          "currency_converter",
+          "shipping_calculator"
+        ],
+        "optimized_for": [
+          "large_catalog",
+          "multi_purpose",
+          "mobile",
+          "mobile_tablet_desktop",
+          "chrome_firefox_safari_ie_10"
+        ],
+        "industries": [
+          "gifts_specialty"
+        ]
+      },
+      "settings": {}
+    },
+    {
+      "name": "Dark",
+      "id": "dark",
+      "meta": {
+        "desktop_screenshot": "mogul-dark-desktop.png",
+        "mobile_screenshot": "mogul-dark-mobile.png",
+        "description": "Mogul is a fresh and versatile theme for growing brands. Its persistent left hand navigation and extensible subcategory menus elegantly support large catalogs, while its clean design and merchandisable homepage sections make it a great choice for a wide variety of product types and industries.",
+        "demo_url": "http://mogul-dark-demo.mybigcommerce.com/",
+        "features": [
+          "fully_responsive",
+          "multi_tiered_sidebar_menu",
+          "homepage_slideshow",
+          "quick_add_to_cart",
+          "Product_comparison_table",
+          "free_customer_support",
+          "free_theme_upgrades",
+          "supports_high_res_product_images",
+          "product_filtering",
+          "one_page_check_out",
+          "customized_checkout",
+          "product_videos",
+          "advanced_quick_view",
+          "customizable_discount_banners",
+          "dropdown_menus_up_to_8_levels",
+          "product_image_zoom",
+          "share_widget",
+          "currency_converter",
+          "shipping_calculator"
+        ],
+        "optimized_for": [
+          "large_catalog",
+          "multi_purpose",
+          "mobile",
+          "mobile_tablet_desktop",
+          "chrome_firefox_safari_ie_10"
+        ],
+        "industries": [
+          "gifts_specialty"
+        ]
+      },
+      "settings": {
+        "regular-font": "Google_Open+Sans_400,700",
+        "heading-font": "Google_Changa_400,700",
+        "accent-color": "#FDCF00",
+        "heading-color": "#ffffff",
+        "body-color": "#C8C8C8",
+        "background-color": "#424242",
+        "footer-text-color": "#ffffff",
+        "footer-background-color": "#2C2C2C",
+        "carousel-text-color": "#ffffff",
+        "promo-color": "#ffffff",
+        "promo-background-color": "#2C2C2C",
+        "apple_pay_style": "white",
+        "homepage_featured_products_limit": 6,
+        "homepage_new_products_limit": 4,
+        "product-count": 16,
+        "grid_aspect_ratio": "one-by-one",
+        "footer_list_one": "pages",
+        "footer_list_two": "disable"
+      }
+    },
+    {
+      "name": "Clean",
+      "id": "clean",
+      "meta": {
+        "desktop_screenshot": "mogul-clean-desktop.png",
+        "mobile_screenshot": "mogul-clean-mobile.png",
+        "description": "Mogul is a fresh and versatile theme for growing brands. Its persistent left hand navigation and extensible subcategory menus elegantly support large catalogs, while its clean design and merchandisable homepage sections make it a great choice for a wide variety of product types and industries.",
+        "demo_url": "http://mogul-clean-demo.mybigcommerce.com/",
+        "features": [
+          "fully_responsive",
+          "multi_tiered_sidebar_menu",
+          "homepage_slideshow",
+          "quick_add_to_cart",
+          "Product_comparison_table",
+          "free_customer_support",
+          "free_theme_upgrades",
+          "supports_high_res_product_images",
+          "product_filtering",
+          "one_page_check_out",
+          "customized_checkout",
+          "product_videos",
+          "advanced_quick_view",
+          "customizable_discount_banners",
+          "dropdown_menus_up_to_8_levels",
+          "product_image_zoom",
+          "share_widget",
+          "currency_converter",
+          "shipping_calculator"
+        ],
+        "optimized_for": [
+          "large_catalog",
+          "multi_purpose",
+          "mobile",
+          "mobile_tablet_desktop",
+          "chrome_firefox_safari_ie_10"
+        ],
+        "industries": [
+          "electronics_computers"
+        ]
+      },
+      "settings": {
+        "regular-font": "Google_Roboto_400,700",
+        "heading-font": "Google_Electrolize_400,700",
+        "accent-color": "#063652",
+        "heading-color": "#000000",
+        "body-color": "#6A6A6A",
+        "background-color": "#ffffff",
+        "footer-text-color": "#000000",
+        "footer-background-color": "#ffffff",
+        "carousel-text-color": "#ffffff",
+        "promo-color": "#000000",
+        "promo-background-color": "#D2D2D2",
+        "homepage_new_products_limit": 12,
+        "product-count": 16,
+        "grid_aspect_ratio": "three-by-two",
+        "heading_style": "uppercase"
+      }
+    },
+    {
+      "name": "Warm",
+      "id": "warm",
+      "meta": {
+        "desktop_screenshot": "mogul-warm-desktop.png",
+        "mobile_screenshot": "mogul-warm-mobile.png",
+        "description": "Mogul is a fresh and versatile theme for growing brands. Its persistent left hand navigation and extensible subcategory menus elegantly support large catalogs, while its clean design and merchandisable homepage sections make it a great choice for a wide variety of product types and industries.",
+        "demo_url": "http://mogul-warm-demo.mybigcommerce.com/",
+        "features": [
+          "fully_responsive",
+          "multi_tiered_sidebar_menu",
+          "homepage_slideshow",
+          "quick_add_to_cart",
+          "Product_comparison_table",
+          "free_customer_support",
+          "free_theme_upgrades",
+          "supports_high_res_product_images",
+          "product_filtering",
+          "one_page_check_out",
+          "customized_checkout",
+          "product_videos",
+          "advanced_quick_view",
+          "customizable_discount_banners",
+          "dropdown_menus_up_to_8_levels",
+          "product_image_zoom",
+          "share_widget",
+          "currency_converter",
+          "shipping_calculator"
+        ],
+        "optimized_for": [
+          "large_catalog",
+          "multi_purpose",
+          "mobile",
+          "mobile_tablet_desktop",
+          "chrome_firefox_safari_ie_10"
+        ],
+        "industries": [
+          "fashion_jewelry"
+        ]
+      },
+      "settings": {
+        "regular-font": "Google_Lato_400,700",
+        "heading-font": "Google_Open+Sans+Condensed_400,700",
+        "heading_style": "uppercase",
+        "accent-color": "#000000",
+        "heading-color": "#000000",
+        "body-color": "#666666",
+        "background-color": "#FAECCD",
+        "footer-text-color": "#000000",
+        "footer-background-color": "#FAECCD",
+        "carousel-text-color": "#ffffff",
+        "promo-color": "#ffffff",
+        "promo-background-color": "#000000",
+        "apple_pay_style": "white",
+        "homepage_featured_products_limit": 3,
+        "homepage_new_products_limit": 0,
+        "product-count": 16,
+        "grid_aspect_ratio": "one-by-one",
+        "footer_list_one": "pages",
+        "footer_list_two": "disable"
+      }
+    }
+  ]
+}

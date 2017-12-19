@@ -1,0 +1,68 @@
+<!doctype html>
+<!--[if IE 8]><html class="no-js ie8 lt-ie10 lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js ie9 lt-ie10"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ locale_name }}"> <!--<![endif]-->
+<head>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>{{head.title}}</title>
+
+  {{{head.meta_tags}}}
+  {{{head.config}}}
+
+  <link href="{{head.favicon}}" rel="shortcut icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  {{{stylesheet '/assets/css/theme.css'}}}
+  {{ getFontsCollection }}
+
+  {{{head.scripts}}}
+  {{{head.rsslinks}}}
+  {{inject 'themeImageSizes' theme_images}}
+  {{> components/global-injects}}
+  {{> components/snippets/facebook-like}}
+
+  {{> core/structured-data/website}}
+</head>
+
+<body class="{{> components/common/body-classes}}">
+  <div class="icon-sprite">{{> components/common/icons/sprite}}</div>
+  {{> components/common/promo-messages}}
+  {{> components/header}}
+  <section class="site-wrap container">
+    {{> components/sidebar}}
+
+    <div class="page-wrap">
+
+      {{> components/common/banners banners=banners.top class='banner-top'}}
+
+      {{#if carousel.slides.length}}
+        {{> components/home/carousel}}
+      {{/if}}
+
+      <main class="main-content">
+        {{#block "page"}}{{/block}}
+      </main>
+
+      {{> components/compare/compare-widget}}
+
+      {{> components/common/banners banners=banners.bottom class='banner-bottom'}}
+
+    </div>
+  </section>
+  {{> components/footer}}
+  <div class="minicart-overlay container" data-minicart-overlay>
+    {{> components/cart/minicart}}
+  </div>
+
+  {{{footer.scripts}}}
+
+  {{> core/structured-data/breadcrumbs}}
+
+  <script src="{{cdn '/assets/js/bundle.js'}}"></script>
+  <script>
+    // Exported in app.js
+    window.stencilBootstrap("{{template_file}}", {{jsContext}});
+  </script>
+
+  {{{snippet 'footer'}}}
+</body>
+</html>

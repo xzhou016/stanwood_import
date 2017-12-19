@@ -1,0 +1,1 @@
+{"components/sidebar/nav-mobile-close":"<button class=\"nav-mobile-close\" data-nav-mobile-toggle>\n  <svg class=\"nav-mobile-icon-close\" title=\"Close mobile menu\" role=\"img\">\n    <use xlink:href=\"#icon-close\"></use>\n  </svg>\n</button>\n"}

@@ -1,0 +1,74 @@
+<h1 class="page-title cart-title">
+  {{lang 'cart.title' quantity=cart.quantity}}
+</h1>
+
+<div data-cart-errors></div>
+
+<div class="cart-item-headers">
+  <span class="cart-item-header cart-item-image-column">{{lang 'cart.item'}}</span>
+  <span class="cart-item-details-column">
+    <span class="cart-item-header cart-item-spacer-column"></span>
+    <span class="cart-item-header cart-item-price-column">{{lang 'cart.price'}}</span>
+    <span class="cart-item-header cart-item-quantity-column">{{lang 'cart.quantity'}}</span>
+    <span class="cart-item-header cart-item-total-column">{{lang 'cart.total'}}</span>
+    <span class="cart-item-header cart-item-remove-column"></span>
+  </span>
+</div>
+
+{{#each cart.items}}
+  <article class="cart-item" data-cart-item data-item-id="{{id}}">
+    <span class="cart-item-column cart-item-image-column">
+      <a
+        href="{{url}}"
+        class="cart-item-image"
+        style="background-image: url({{getImage image 'thumb' (cdn ../theme_settings.default-product-image)}})"
+      >
+      </a>
+      <img
+        class="sr-only"
+        src="{{getImage image 'thumb' (cdn ../theme_settings.default-product-image)}}"
+        alt="{{image.alt}}"
+      />
+    </span>
+    <span class="cart-item-details-column">
+      <div class="cart-item-details cart-item-column">
+        <span class="cart-item-brand">{{brand.name}}</span>
+        <span class="cart-item-title"><a href="{{url}}">{{name}}</a></span>
+          <div class="cart-item-sku">{{sku}}</div>
+            {{#each options}}
+              <div class="cart-item-options">{{name}}: {{value}}</div>
+            {{/each}}
+            {{#or options configurable_fields}}
+              <span class="cart-item-edit-options">
+                <a href="#" data-item-edit="{{id}}">{{lang 'cart.change'}}</a>
+              </span>
+            {{/or}}
+            {{> components/cart/gift-wrap-item this}}
+          </div>
+      <span class="cart-item-column cart-item-price-column">
+        <span class="{{#if price_discounted}}cart-item-price-discounted{{/if}}">{{price.formatted}}</span>
+        {{#if price_discounted}}
+          <span class="cart-item-discount">{{price_discounted.formatted}}</span>
+        {{/if}}
+      </span>
+      <span class="cart-item-column cart-item-quantity-column">
+        {{> components/common/quantity this}}
+        <a href="{{remove_url}}"
+           class="cart-remove-link-tablet"
+           data-cart-item-remove
+        >
+          {{lang 'cart.remove'}}
+        </a>
+      </span>
+      <span class="cart-item-column cart-item-total-column">
+        <span class="{{#if total_discounted}}cart-item-price-discounted{{/if}}">{{total.formatted}}</span>
+        {{#if total_discounted}}
+          <span class="cart-item-discount">{{total_discounted.formatted}}</span>
+        {{/if}}
+      </span>
+      <span class="cart-item-column cart-item-remove-column">
+        <a href="{{remove_url}}" data-cart-item-remove>{{lang 'cart.remove'}}</a>
+      </span>
+      </span>
+  </article>
+{{/each}}

@@ -1,0 +1,1 @@
+{"components/search/quick-search-content":"<article class=\"quick-search-content-block\">\n  <div class=\"search-content-type quick-search-content-type\">{{type}}</div>\n  <h2 class=\"search-content-title quick-search-content-title\"><a href=\"{{url}}\">{{title}}</a></h2>\n  <p class=\"quick-search-content-summary\">{{{content}}}</p>\n</article>\n"}

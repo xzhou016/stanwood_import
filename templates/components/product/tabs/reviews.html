@@ -1,0 +1,48 @@
+<section
+  class="product-tabs-reviews product-tabs-section"
+  id="reviews"
+  data-tab-content
+>
+  <h1 class="product-review-title">{{lang 'product.tabs.reviews' num=product.reviews.total}}</h1>
+  {{#if product.reviews.list.length}}
+    <button
+      class="review-link link-button"
+      data-review-link
+    >
+      {{lang 'product.tabs.leave_review'}}
+    </button>
+    {{#each product.reviews.list}}
+      <article class="product-tab-review">
+        <div class="product-rating">
+          <div class="rating-stars-readonly" aria-hidden="true">
+            {{#enumerate 1 5}}
+              {{#compare ../rating this operator='>='}}
+                <svg class="rating-star rating-star-full" role="presentation">
+                  <use xlink:href="#icon-star"></use>
+                </svg>
+              {{else}}
+                <svg class="rating-star rating-star-empty" role="presentation">
+                  <use xlink:href="#icon-star"></use>
+                </svg>
+              {{/compare}}
+            {{/enumerate}}
+          </div>
+        </div>
+        <div class="product-tab-review-name">{{name}}</div>
+        <h1 class="product-tab-review-title">{{title}}</h1>
+        <div class="product-tab-review-description">{{text}}</div>
+      </article>
+    {{/each}}
+  {{else}}
+    <p class="product-tabs-no-reviews">
+      {{lang 'product.reviews.no_reviews'}}
+      <button
+        class="no-review-link link-button"
+        data-review-link
+      >
+        {{lang 'product.reviews.leave_review'}}
+      </button>
+    </p>
+  {{/if}}
+  {{> components/reviews/review-modal}}
+</section>

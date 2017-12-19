@@ -1,0 +1,18 @@
+<ul class="{{#if selected}}is-open{{/if}} {{#unless start_collapsed}}is-open{{/unless}}"
+    id="filter-list-{{#replace ' ' facet}}{{else}}{{facet}}{{/replace}}"
+    data-count="{{items_count}}"
+    data-facet="{{facet}}"
+    data-facet-filter-wrapper
+>
+  {{#each items}}
+    <li class="sidebar-filter-item filter-item" data-facet-item>
+      <a href="{{url}}"
+         class="sidebar-filter-item-link {{#if selected}}sidebar-filter-item-link-selected{{/if}}"
+         data-faceted-search-facet>
+
+        {{title}}
+        {{#if ../show_product_counts}}<span data-facet-item-count>({{count}})</span>{{/if}}
+      </a>
+    </li>
+  {{/each}}
+</ul>

@@ -1,0 +1,80 @@
+<section class="product-image">
+  {{#if images}}
+    <div class="product-image-main-image" data-product-main-image>
+      {{#each images}}
+        <img
+          data-flickity-lazyload="{{getImage this 'medium' default_image=(cdn ../theme_settings.default_image)}}"
+          class="product-main-image-slide"
+          alt="{{alt}}"
+          data-product-main-image-slide
+        />
+      {{/each}}
+
+      {{#if product.price.saved}}
+        <div class="product-item-tag {{prefix}}-item-tag tag-sale">{{lang 'core.product.sale'}}</div>
+      {{/if}}
+    </div>
+
+    <div
+      class="product-image-thumbnails {{#if images.length '<' 2}} product-image-thumbnails-hidden{{/if}}"
+      data-product-thumbnails
+    >
+      {{#each images}}
+        <figure
+          data-flickity-bg-lazyload="{{getImage this 'small' default_image=(cdn ../theme_settings.default_image)}}"
+          class="product-thumbnails-slide"
+          data-product-thumbnails-slide
+        >
+        </figure>
+      {{/each}}
+    </div>
+
+    <button
+      class="product-thumbnails-arrow product-thumbnails-arrow-previous {{#if images.length '<' 2}} product-thumbnails-arrow-hidden{{/if}}"
+      type="button"
+      data-carousel-slide-previous
+    >
+      <svg class="product-thumbnails-arrow-icon product-thumbnails-arrow-icon-previous" title="Previous product image" role="img">
+        <use xlink:href="#icon-arrow"></use>
+      </svg>
+    </button>
+    <button
+      class="product-thumbnails-arrow product-thumbnails-arrow-next {{#if images.length '<' 2}} product-thumbnails-arrow-hidden{{/if}}"
+      type="button"
+      data-carousel-slide-next
+    >
+      <svg class="product-thumbnails-arrow-icon product-thumbnails-arrow-icon-next" title="Next product image" role="img">
+        <use xlink:href="#icon-arrow"></use>
+      </svg>
+    </button>
+
+  {{else}}
+    <div class="product-image-main-image" data-product-main-image>
+      <img
+        src="{{cdn theme_settings.default_image}}"
+        class="product-main-image-slide"
+        alt="{{alt}}"
+        data-product-main-image-slide
+      />
+    </div>
+
+    <div class="product-image-thumbnails product-image-thumbnails-hidden" data-product-thumbnails>
+      <figure
+        style="background-image: url('{{cdn theme_settings.default_image}}')"
+        class="product-thumbnails-slide"
+        data-product-thumbnails-slide
+      >
+      </figure>
+    </div>
+  {{/if}}
+
+  <div class="product-image-zooms" data-product-image-zooms>
+    {{#if images}}
+      {{#each images}}
+        <div class="image-zoom" data-image="{{getImage this 'zoom' default_image=(cdn ../theme_settings.default_image)}}"></div>
+      {{/each}}
+    {{else}}
+      <div class="image-zoom" data-image="{{cdn theme_settings.default_image}}" alt="{{product.name}}"></div>
+    {{/if}}
+  </div>
+</section>

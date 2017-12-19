@@ -1,0 +1,54 @@
+<div class="sidebar {{#if theme_settings.pages_first}}sidebar-pages-first{{/if}}" data-sidebar>
+  <div class="sidebar-fluid" data-sidebar-fluid>
+    {{> components/sidebar/nav-mobile-close}}
+    {{#if theme_settings.show_categories}}
+      {{#if theme_settings.category_display '===' 'in_main_navigation'}}
+        {{> components/nav-categories}}
+      {{/if}}
+    {{/if}}
+
+    {{#all theme_settings.show_categories theme_settings.show_pages}}
+      <hr class="sidebar-divider">
+    {{/all}}
+
+    {{#if theme_settings.show_pages}}
+      {{> components/nav-pages}}
+    {{/if}}
+
+    {{#if theme_settings.show_pages '===' false}}
+      {{#if theme_settings.show_categories}}
+        {{#if theme_settings.category_display '===' 'in_a_dropdown'}}
+          {{> components/nav-pages only_shop_link=true}}
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  </div>
+  {{#if template_file '===' 'pages/category'}}
+    <div class="sidebar-filters sidebar-fluid" data-sidebar-fluid>
+      <hr class="sidebar-divider">
+      <div class="sidebar-category-filters" data-faceted-search data-category-sidebar>
+        {{> components/category/filters}}
+      </div>
+    </div>
+  {{/if}}
+  {{#if template_file '===' 'pages/brand'}}
+    <div class="sidebar-filters sidebar-fluid" data-sidebar-fluid>
+      <hr class="sidebar-divider">
+      <div class="sidebar-brand-filters" data-faceted-search data-brand-sidebar>
+        {{> components/brand/filters}}
+      </div>
+    </div>
+  {{/if}}
+  {{#if template_file '===' 'pages/search'}}
+    <div class="sidebar-filters sidebar-fluid" data-sidebar-fluid>
+      <hr class="sidebar-divider">
+      <div class="sidebar-search-filters" data-faceted-search data-search-sidebar>
+        {{> components/search/filters}}
+      </div>
+    </div>
+  {{/if}}
+  <span class="sidebar-tools">
+    {{> components/header/customer-links}}
+    {{> components/header/currency-selector}}
+  </span>
+</div>

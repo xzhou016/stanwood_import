@@ -1,0 +1,20 @@
+{{#partial "page"}}
+  <article class="page-container page-maintenance">
+    <div class="page-header">
+      <h1 class="page-title">{{lang 'core.unavailable.maintenance_heading'}}</h1>
+    </div>
+
+    <div class="container">
+      <div class="page-content rte maintenance-message">
+        {{#if settings.maintenance.message}}
+          {{{settings.maintenance.message}}}
+        {{else}}
+          {{lang 'core.unavailable.maintenance_message'}}
+        {{/if}}
+      </div>
+    </div>
+  </article>
+
+{{/partial}}
+
+{{> core/unavailable/layout}}

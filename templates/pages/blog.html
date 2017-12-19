@@ -1,0 +1,31 @@
+---
+blog:
+  posts:
+    limit: {{theme_settings.blog-posts-per-page}}
+---
+
+{{#partial "page"}}
+
+<article class="blog-container">
+
+  {{> components/breadcrumbs}}
+
+  <div class="page-header">
+    <h1 class="page-title">{{blog.name}}</h1>
+  </div>
+
+  <div class="blog-content">
+    {{#each blog.posts}}
+      {{> components/blog/blog-item this}}
+    {{/each}}
+
+    {{#if pagination.blog.links.length ">" 1}}
+      {{> components/common/pagination pagination.blog}}
+    {{/if}}
+  </div>
+
+</article>
+
+{{/partial}}
+
+{{> layout/base}}

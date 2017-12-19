@@ -1,0 +1,23 @@
+{{{snippet 'forms_search'}}}
+<form class="search-form" action="{{urls.search}}" data-search-form>
+  <button type="submit" class="search-submit">
+    <svg class="search-icon" title="{{lang 'header.search'}}" role="img">
+      <use xlink:href="#icon-search"></use>
+    </svg>
+  </button>
+  <input class="search-input form-input"
+         name="search_query"
+         placeholder="{{lang 'header.search'}}"
+         type="text"
+         autocomplete="off"
+         data-search-input
+         data-search-url="{{urls.search}}"
+         aria-label="{{lang 'header.search'}}"
+  >
+
+  <button class="search-close" data-search-close>
+    <svg class="search-close-icon" title="Close Search" role="img">
+      <use xlink:href="#icon-close"></use>
+    </svg>
+  </button>
+</form>

@@ -1,0 +1,27 @@
+<div class="compare-item-footer">
+  <div class="compare-item-description compare-item-footer-section">
+    <h2 class="compare-item-footer-title">
+      {{lang 'compare.description'}}
+    </h2>
+
+    {{#each comparisons}}
+      <div class="compare-item">{{{summary}}}</div>
+    {{/each}}
+  </div>
+
+  <div class="compare-item-description compare-item-footer-section">
+    <h2 class="compare-item-footer-title">
+      {{lang 'compare.availability'}}
+    </h2>
+
+    {{#each comparisons}}
+      <div class="compare-item">
+        {{#if out_of_stock_message}}
+          {{out_of_stock_message}}
+        {{else}}
+          {{lang 'compare.in_stock'}}
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
+</div>

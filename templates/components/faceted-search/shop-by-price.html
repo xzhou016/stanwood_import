@@ -1,0 +1,23 @@
+{{!
+  @param clear_url
+         The URL for the page without filters.
+
+  @param shop_by_price
+         The price range filters, as supplied by Bigcommerce.
+}}
+<div class="filter filter-byprice">
+  <h2 class="sidebar-filter-title filter-title">{{lang 'filter.price.title'}}</h2>
+  <ul class="filter-list">
+    {{#each shop_by_price}}
+      <li class="sidebar-filter-item filter-item {{#if selected}}selected{{/if}}">
+        <a class="sidebar-filter-item-link filter-item-link" href="{{url}}" data-faceted-search-facet>{{lang 'filter.price.range' low=low.formatted high=high.formatted}}</a>
+      </li>
+    {{/each}}
+
+    {{#any shop_by_price selected=true}}
+      <li class="sidebar-filter-item-selected sidebar-filter-item filter-item">
+        <a class="sidebar-filter-item-link-selected sidebar-filter-item-link filter-item-link" href="{{../clear_url}}" data-faceted-search-facet>{{lang 'filter.clear_selection'}}</a>
+      </li>
+    {{/any}}
+  </ul>
+</div>

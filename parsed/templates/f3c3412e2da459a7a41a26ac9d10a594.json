@@ -1,0 +1,1 @@
+{"components/product/tabs/warranty":"{{#if product.warranty}}\n  <section\n    class=\"product-tabs-section product-tabs-warranty\"\n    id=\"warranty\"\n    data-tab-content\n  >\n    <h1 class=\"product-warranty-title\">{{lang 'product.tabs.warranty'}}</h1>\n    {{{product.warranty}}}\n  </section>\n{{/if}}\n"}

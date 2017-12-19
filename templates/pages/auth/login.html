@@ -1,0 +1,17 @@
+{{#partial "page"}}
+
+  <div class="account-container">
+    {{> components/breadcrumbs}}
+
+    <div class="page-header">
+      <h1 class="page-title">
+        {{lang 'core.auth.login.login_form.heading'}}
+      </h1>
+    </div>
+
+    {{> core/auth/login}}
+  </div>
+
+{{/partial}}
+
+{{> layout/base}}

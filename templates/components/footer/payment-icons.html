@@ -1,0 +1,51 @@
+<div class="footer-payment-icons">
+  <ul class="footer-payment-icons-list">
+    {{#if theme_settings.show_visa_icon}}
+      <li>
+        <svg class="footer-payment-icon visa" role="presentation">
+          <use xlink:href="#icon-visa"></use>
+        </svg>
+      </li>
+    {{/if}}
+
+    {{#if theme_settings.show_mastercard_icon}}
+      <li>
+        <svg class="footer-payment-icon mastercard" role="presentation">
+          <use xlink:href="#icon-mastercard">
+        </svg>
+      </li>
+    {{/if}}
+
+    {{#if theme_settings.show_amex_icon}}
+      <li>
+        <svg class="footer-payment-icon american-express" role="presentation">
+          <use xlink:href="#icon-american-express">
+        </svg>
+      </li>
+    {{/if}}
+
+    {{#if theme_settings.show_discover_icon}}
+      <li>
+        <svg class="footer-payment-icon discover" role="presentation">
+          <use xlink:href="#icon-discover">
+        </svg>
+      </li>
+    {{/if}}
+
+    {{#if theme_settings.show_paypal_icon}}
+      <li>
+        <svg class="footer-payment-icon paypal" role="presentation">
+          <use xlink:href="#icon-paypal">
+        </svg>
+      </li>
+    {{/if}}
+
+    {{#if theme_settings.show_apple_pay_icon}}
+      <li>
+        <svg class="footer-payment-icon apple-pay" role="presentation">
+          <use xlink:href="#icon-apple-pay">
+        </svg>
+      </li>
+    {{/if}}
+  </ul>
+</div>

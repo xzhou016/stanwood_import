@@ -1,0 +1,39 @@
+<main class="minicart-items" data-minicart-content data-count="{{cart.quantity}}">
+  {{#each cart.items}}
+    <div class="minicart-item" data-minicart-item data-product-id="{{id}}" data-current-count="{{quantity}}">
+      <a href="{{url}}" class="minicart-item-link">
+        <div class="minicart-item-image"
+             style="background-image: url({{getImage image 'small' (cdn ../theme_settings.default_image)}})"></div>
+        <img class="sr-only"
+             src="{{getImage image 'thumb' (cdn ../theme_settings.default-product-image)}}"
+             alt="{{image.alt}}"/>
+      </a>
+      <div class="minicart-item-info">
+        <a href="{{url}}">
+          <h2 class="minicart-item-title">
+            {{name}}
+          </h2>
+        </a>
+
+        <div class="minicart-item-details">
+          {{#each options}}
+            <div>{{name}}: {{value}}</div>
+          {{/each}}
+        </div>
+
+        <div class="minicart-item-quantity-price">
+          {{> components/common/quantity this}}
+
+          <div class="minicart-item-price {{#if total_discounted.formatted}}minicart-item-price-discounted{{/if}}">
+            <span class="minicart-item-price-regular">{{total.formatted}}</span>
+            {{total_discounted.formatted}}
+          </div>
+        </div>
+
+        <a href="#" data-minicart-item-remove>
+          {{lang 'cart.remove'}}
+        </a>
+      </div>
+    </div>
+  {{/each}}
+</main>

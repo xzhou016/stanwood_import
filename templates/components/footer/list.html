@@ -1,0 +1,90 @@
+<div class="footer-lists">
+  {{#if list_one '===' 'disable'}}
+  {{else if list_one '===' 'brands'}}
+    <ul class="footer-list">
+      {{#each shop_by_brand}}
+        <li class="footer-list-item">
+          <a href="{{url}}" class="footer-list-link">{{{name}}}</a>
+        </li>
+      {{/each}}
+      {{#if shop_by_brand.length '>' 8}}
+        <li class="footer-list-item">
+          <a href="{{urls.brands}}" class="footer-list-link">{{lang 'footer.view_all'}}</a>
+        </li>
+      {{/if}}
+    </ul>
+  {{else if list_one '===' 'categories'}}
+    <ul class="footer-list">
+      {{#each (limit categories 10)}}
+        <li class="footer-list-item">
+          <a href="{{url}}" class="footer-list-link">{{{name}}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  {{else if list_one '===' 'pages'}}
+    <ul class="footer-list">
+      {{#each (limit pages 10)}}
+        <li class="footer-list-item">
+          <a href="{{url}}" class="footer-list-link">{{{name}}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+
+  {{#if list_two '===' 'disable'}}
+  {{else if list_two '===' 'brands'}}
+    <ul class="footer-list">
+      {{#each shop_by_brand}}
+        <li class="footer-list-item">
+          <a href="{{url}}" class="footer-list-link">{{{name}}}</a>
+        </li>
+      {{/each}}
+      {{#if shop_by_brand.length '>' 8}}
+        <li class="footer-list-item">
+          <a href="{{urls.brands}}" class="footer-list-link">{{lang 'footer.view_all'}}</a>
+        </li>
+      {{/if}}
+    </ul>
+  {{else if list_two '===' 'categories'}}
+    <ul class="footer-list">
+      {{#each (limit categories 10)}}
+        <li class="footer-list-item">
+          <a href="{{url}}" class="footer-list-link">{{{name}}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  {{else if list_two '===' 'pages'}}
+    <ul class="footer-list">
+      {{#each (limit pages 10)}}
+        <li class="footer-list-item">
+          <a href="{{url}}" class="footer-list-link">{{{name}}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+
+  <ul class="footer-list">
+    {{#if settings.account_creation_enabled}}
+      <li class="footer-list-item">
+        <a href="{{urls.account.index}}" class="footer-list-link">{{lang 'footer.account'}}</a>
+      </li>
+      {{#if settings.show_wishlist}}
+        <li class="footer-list-item">
+          <a href="{{urls.wishlists.all}}" class="footer-list-link">{{lang 'footer.wishlist'}}</a>
+        </li>
+      {{/if}}
+    {{/if}}
+    {{#if settings.gift_certificates_enabled}}
+      <li class="footer-list-item">
+        <a href="{{urls.gift_certificate.purchase}}" class="footer-list-link">{{lang 'footer.gift_certificates'}}</a>
+      </li>
+    {{/if}}
+    {{#if theme_settings.footer_show_sitemap}}
+      {{#if urls.sitemap}}
+        <li class="footer-list-item">
+          <a href="{{urls.sitemap}}" class="footer-list-link">{{lang 'sitemap.heading'}}</a>
+        </li>
+      {{/if}}
+    {{/if}}
+  </ul>
+</div>

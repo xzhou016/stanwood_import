@@ -1,0 +1,22 @@
+{{#partial "page"}}
+  <article class="page-container">
+    {{> components/breadcrumbs}}
+
+    <section
+      class="compare-page
+             {{#if ../comparisons.length 2 operator='=='}}two-items{{/if}}
+             {{#if ../comparisons.length 3 operator='=='}}three-items{{/if}}"
+    >
+      {{#each comparisons}}
+        {{> components/product/product-item
+          settings=../theme_settings
+          prefix="compare"
+        }}
+      {{/each}}
+
+      {{> components/compare/compare-footer}}
+    </section>
+
+  </article>
+{{/partial}}
+{{> layout/base}}

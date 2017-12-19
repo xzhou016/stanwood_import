@@ -1,0 +1,17 @@
+<section class="minicart {{#unless cart.items.length}}minicart-is-empty{{/unless}}" data-minicart>
+  <header class="minicart-header">
+    <h1 class="minicart-title">{{lang 'cart.minicart.title'}}</h1>
+
+    <button class="minicart-close" data-minicart-close>
+      <svg class="minicart-close-icon" title="Close minicart" role="img">
+        <use xlink:href="#icon-close"></use>
+      </svg>
+    </button>
+  </header>
+  {{#if cart.items.length}}
+    {{> components/cart/minicart-content}}
+    {{> components/cart/minicart-footer}}
+  {{else}}
+    <div class="minicart-empty">{{lang 'cart.minicart.empty'}}</div>
+  {{/if}}
+</section>

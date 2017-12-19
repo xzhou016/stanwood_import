@@ -1,0 +1,10 @@
+<button class="modal-close">
+  <svg class="modal-close-icon" title="Close quick view" role="img">
+    <use xlink:href="#icon-close"></use>
+  </svg>
+</button>
+
+<div class="modal-body quick-view-modal-body" data-quick-view-product>
+  {{> components/product/images images=product.images}}
+  {{> components/product/details quick_view=true}}
+</div>

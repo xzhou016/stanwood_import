@@ -1,0 +1,8 @@
+<button class="minicart-toggle {{#unless cart.quantity}}minicart-toggle-empty{{/unless}}" data-minicart-toggle>
+  <svg class="minicart-icon" title="Open mini cart" role="img">
+    <use xlink:href="#icon-cart"></use>
+  </svg>
+  <div class="minicart-toggle-label">
+    <div class="minicart-count" data-minicart-count>{{cart.quantity}}</div>
+  </div>
+</button>

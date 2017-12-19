@@ -1,0 +1,18 @@
+<section class="breadcrumbs">
+  {{#each breadcrumbs}}
+    {{#if url}}
+      <a href="{{url}}" class="breadcrumb-link breadcrumb-text">{{name}}</a>
+      <span class="breadcrumb-separator"> > </span>
+    {{else}}
+      {{#if name '===' 'Search'}}
+        {{#if ../../../forms.search.query}}
+          <span class="breadcrumb-text">{{lang 'search.results.count' search_term=../../../../forms.search.query}}</span>
+        {{else}}
+          <span class="breadcrumb-text">{{lang 'search.results.no_term_breadcrumbs'}}</span>
+        {{/if}}
+      {{else}}
+        <span class="breadcrumb-text">{{name}}</span>
+      {{/if}}
+    {{/if}}
+  {{/each}}
+</section>

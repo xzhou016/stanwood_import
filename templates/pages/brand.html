@@ -1,0 +1,39 @@
+---
+brand:
+  shop_by_price: true
+  products:
+    limit: {{theme_settings.product-count}}
+---
+
+{{#partial "page"}}
+  {{> components/breadcrumbs}}
+
+  <h1 class="section-title products-section-title category-page-title">{{brand.name}}</h1>
+
+  {{#if brand.faceted_search_enabled}}
+    <div class="category-page-header">
+      <span class="category-product-total-refine">
+        {{> components/refine-toggle}}
+        <span class="category-product-total">{{{lang 'category.product_total' num=brand.products.length}}}</span>
+      </span>
+
+      <div class="mobile-category-filters" data-faceted-search data-category-sidebar>
+        {{> components/brand/filters}}
+      </div>
+
+      {{> components/faceted-search/sort
+        sort=pagination.brand.sort
+      }}
+      <div class="faceted-search-selected" data-faceted-search-selected>
+        {{#if brand.faceted_search_enabled}}
+          {{> components/brand/selected}}
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
+
+  {{> components/brand/products}}
+  {{> components/brand/pagination}}
+{{/partial}}
+
+{{> layout/base}}

@@ -1,0 +1,46 @@
+---
+category:
+  shop_by_price: true
+  products:
+    limit: {{theme_settings.product-count}}
+---
+
+{{#partial "page"}}
+  {{> components/breadcrumbs}}
+
+  {{#if category.image}}
+    <div class="products-section-image" style="background-image: url({{getImage category.image 'large'}});"></div>
+  {{/if}}
+  <h1 class="category-page-title products-section-title section-title">{{category.name}}</h1>
+  {{#if category.description}}
+    <div class="products-section-description">{{{category.description}}}</div>
+  {{/if}}
+  <hr class="category-divider">
+  {{#if category.faceted_search_enabled}}
+    <div class="category-page-header">
+      <span class="category-product-total-refine">
+        {{> components/refine-toggle}}
+        <span class="category-product-total">{{{lang 'category.product_total' num=category.products.length}}}</span>
+      </span>
+
+      <div class="mobile-category-filters" data-faceted-search data-category-sidebar>
+        {{> components/category/filters}}
+      </div>
+
+      <hr class="mobile-sort-divider">
+
+      {{> components/faceted-search/sort
+        sort=pagination.category.sort
+      }}
+      <div class="faceted-search-selected" data-faceted-search-selected>
+        {{#if category.faceted_search_enabled}}
+          {{> components/category/selected}}
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
+  {{> components/category/products}}
+  {{> components/category/pagination}}
+{{/partial}}
+
+{{> layout/base}}

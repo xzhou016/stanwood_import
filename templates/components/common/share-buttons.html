@@ -1,0 +1,104 @@
+{{#if share_buttons.buttons.length}}
+  <nav class="share-buttons-nav">
+    {{#if share_heading}}
+      <h2 class="share-heading">{{lang 'common.share_this'}}</h2>
+    {{/if}}
+
+    <ul class="share-buttons" data-share-buttons>
+      {{#each share_buttons.buttons}}
+        {{#if service '===' 'facebook'}}
+          <li class="social-link facebook">
+            <a target="_blank" href="http://www.facebook.com/sharer.php?u={{../../url}}"
+            class="facebook">
+              <svg class="icon-social" title="Share on Facebook" role="img">
+                <use xlink:href="#icon-facebook"></use>
+              </svg>
+            </a>
+          </li>
+        {{/if}}
+
+        {{#if service '===' 'twitter'}}
+          <li class="social-link twitter">
+            <a target="_blank" href="https://twitter.com/share?url={{../../url}}&amp;text={{../../title}}" class="twitter">
+              <svg class="icon-social" title="Share on Twitter" role="img">
+                <use xlink:href="#icon-twitter"></use>
+              </svg>
+            </a>
+          </li>
+        {{/if}}
+
+        {{#if service '===' 'google_plusone'}}
+          <li class="social-link google-plus">
+            <a target="_blank" href="https://plus.google.com/share?url={{../../url}}"
+            class="google-plus">
+              <svg class="icon-social" title="Share on Google Plus" role="img">
+                <use xlink:href="#icon-google-plus"></use>
+              </svg>
+            </a>
+          </li>
+        {{/if}}
+
+        {{#if service '===' 'linkedin'}}
+          <li class="social-link linkedin">
+            <a target="_blank" href="http://www.linkedin.com/shareArticle?url={{../../url}}&amp;title={{../../title}}"
+            class="linkedin">
+              <svg class="icon-social" title="Share on LinkedIn" role="img">
+                <use xlink:href="#icon-linkedin"></use>
+              </svg>
+            </a>
+          </li>
+        {{/if}}
+
+        {{#if service '===' 'email'}}
+          <li class="social-link mail">
+            <a href="mailto:?subject={{../../title}}&amp;body={{../../url}}"
+            class="email">
+              <svg class="icon-social" title="Share by email" role="img">
+                <use xlink:href="#icon-mail"></use>
+              </svg>
+            </a>
+          </li>
+        {{/if}}
+
+        {{#if service '===' 'print'}}
+          <li class="social-link print">
+            <a class="print" href="javascript:;" onclick="window.print()">
+              <svg class="icon-social" title="Print page" role="img">
+                <use xlink:href="#icon-print"></use>
+              </svg>
+            </a>
+          </li>
+        {{/if}}
+
+        {{#if service '===' 'pinterest' }}
+          {{#if ../../image}}
+            <li class="social-link pinterest">
+              <a
+                target="_blank"
+                href="//pinterest.com/pin/create/button/?url={{../../../url}}{{#if ../../../image}}&amp;media={{../../../../image}}{{/if}}&amp;description={{../../../title}}"
+                class="share-pinterest"
+              >
+                <svg class="icon-social" title="Share on Pinterest" role="img">
+                  <use xlink:href="#icon-pinterest"></use>
+                </svg>
+              </a>
+            </li>
+          {{/if}}
+        {{/if}}
+      {{/each}}
+
+      {{#each share_buttons.buttons}}
+        {{#if service '===' 'facebook_like'}}
+          <li class="social-link facebook-like">
+            <div class="fb-like"
+              data-href="{{../../url}}"
+              data-layout="button_count"
+              data-action="like"
+              data-show-faces="false">
+            </div>
+          </li>
+        {{/if}}
+      {{/each}}
+    </ul>
+  </nav>
+{{/if}}

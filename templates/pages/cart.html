@@ -1,0 +1,18 @@
+{{#partial "page"}}
+
+  {{> components/breadcrumbs}}
+
+  {{#if cart.items.length}}
+    <div data-cart-content>
+      {{> components/cart/content}}
+    </div>
+
+    <div data-cart-totals>
+      {{> components/cart/totals}}
+    </div>
+  {{else}}
+    <h1 class="page-title cart-title">{{lang 'cart.empty'}}</h1>
+  {{/if}}
+
+{{/partial}}
+{{> layout/base}}

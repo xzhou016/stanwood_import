@@ -1,0 +1,30 @@
+<li class="nav-submenu-item"
+    id="nav-menu-category-{{id}}"
+    data-menu-item
+    {{#each breadcrumbs}}
+      {{#if ../url '===' url}}
+        data-menu-item-breadcrumb
+      {{/if}}
+    {{/each}}
+>
+  <div class="nav-submenu-item-top-row" data-nav-menu-item-row>
+    <a href="{{url}}" class=" nav-submenu-item-link">
+      {{name}}
+    </a>
+
+    {{#if children}}
+        <button class="submenu-toggle" data-submenu-toggle>
+          <svg class="submenu-toggle-icon" title="Display submenu" role="img">
+            <use xlink:href="#icon-lazy-arrow"></use>
+          </svg>
+        </button>
+      </div>
+      <ul class="nav-submenu" data-submenu>
+        {{#each children}}
+          {{> components/nav-category-item breadcrumbs=../breadcrumbs}}
+        {{/each}}
+      </ul>
+    {{else}}
+      </div>
+    {{/if}}
+</li>
