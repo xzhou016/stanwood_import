@@ -1,64 +1,231 @@
-import Listing from './listing/Listing';
-import FacetedSearch from './components/FacetedSearch';
-import Tabs from 'bc-tabs';
+import { hooks } from '@bigcommerce/stencil-utils';
+import CatalogPage from './catalog';
+import $ from 'jquery';
+import FacetedSearch from './common/faceted-search';
+import urlUtils from './common/url-utils';
+import Url from 'url';
+import collapsibleFactory from './common/collapsible';
+import 'jstree';
+import nod from './common/nod';
 
-export default class Search {
-  constructor(context) {
-    this.context = context;
-    this.$tabLink = $('.search-tab-link');
-    this.queryString = window.location.search;
+export default class Search extends CatalogPage {
+    formatCategoryTreeForJSTree(node) {
+        const nodeData = {
+            text: node.data,
+            id: node.metadata.id,
+            state: {
+                selected: node.selected,
+            },
+        };
 
-    this.listing = new Listing('search', {
-      product_results: {limit: this.context.listingProductCount},
-    });
+        if (node.state) {
+            nodeData.state.opened = node.state === 'open';
+            nodeData.children = true;
+        }
 
-    this.listing.on('update', () => {
-      this.tabs.unload();
-      this._initTabs();
-    });
+        if (node.children) {
+            nodeData.children = [];
+            node.children.forEach((childNode) => {
+                nodeData.children.push(this.formatCategoryTreeForJSTree(childNode));
+            });
+        }
 
-    this._initTabs();
-    this._initializeFacetedSearch();
-  }
-
-  _initTabs() {
-    // Show the content tab if no product results, or product tab if category/brand results
-    let defaultTab = '';
-
-    if ($('#search-product-listing .search-results-group').length) {
-      defaultTab = document.querySelector('#product-content-listing');
-    } else if (!$('#search-product-listing .products-section-grid').length) {
-      defaultTab = document.querySelector('#search-content-listing');
+        return nodeData;
     }
 
-    this.tabs = new Tabs({
-      defaultTab,
-      keepTabsOpen: () => false,
-    });
-  }
+    showProducts() {
+        const url = urlUtils.replaceParams(location.href, {
+            section: 'product',
+        });
 
-  _initializeFacetedSearch() {
-    const facetedSearchOptions = {
-      config: {
-        product_results: {
-          limit: this.context.productsPerPage,
-        },
-      },
-      template: {
-        productListing: 'search/products',
-        sidebar: 'search/filters',
-      },
-      scope: {
-        productListing: '[data-search]',
-        sidebar: '[data-search-sidebar]',
-      },
-      showMore: 'search/show-more',
-    };
+        urlUtils.goToUrl(url);
+        this.$productListingContainer.removeClass('u-hiddenVisually');
+        this.$contentResultsContainer.addClass('u-hiddenVisually');
+    }
 
-    new FacetedSearch(facetedSearchOptions);
-  }
+    showContent() {
+        const url = urlUtils.replaceParams(location.href, {
+            section: 'content',
+        });
 
-  unload() {
-    //remove all event handlers
-  }
+        urlUtils.goToUrl(url);
+        this.$contentResultsContainer.removeClass('u-hiddenVisually');
+        this.$productListingContainer.addClass('u-hiddenVisually');
+    }
+
+    loaded() {
+        const $searchForm = $('[data-advanced-search-form]');
+        const $categoryTreeContainer = $searchForm.find('[data-search-category-tree]');
+        const url = Url.parse(location.href, true);
+        const treeData = [];
+        this.$productListingContainer = $('#product-listing-container');
+        this.$facetedSearchContainer = $('#faceted-search-container');
+        this.$contentResultsContainer = $('#search-results-content');
+
+        // Init faceted search
+        if ($('#facetedSearch').length > 0) {
+            this.initFacetedSearch();
+        } else {
+            this.onSortBySubmit = this.onSortBySubmit.bind(this);
+            hooks.on('sortBy-submitted', this.onSortBySubmit);
+        }
+
+        // Init collapsibles
+        collapsibleFactory();
+
+        $('[data-product-results-toggle]').click((event) => {
+            event.preventDefault();
+            this.showProducts();
+        });
+
+        $('[data-content-results-toggle]').click((event) => {
+            event.preventDefault();
+            this.showContent();
+        });
+
+        if (this.$productListingContainer.find('li.product').length === 0 || url.query.section === 'content') {
+            this.showContent();
+        } else {
+            this.showProducts();
+        }
+
+        const validator = this.initValidation($searchForm)
+            .bindValidation($searchForm.find('#search_query_adv'));
+
+        this.context.categoryTree.forEach((node) => {
+            treeData.push(this.formatCategoryTreeForJSTree(node));
+        });
+
+        this.categoryTreeData = treeData;
+        this.createCategoryTree($categoryTreeContainer);
+
+        $searchForm.submit((event) => {
+            const selectedCategoryIds = $categoryTreeContainer.jstree().get_selected();
+
+            if (!validator.check()) {
+                return event.preventDefault();
+            }
+
+            $searchForm.find('input[name="category\[\]"]').remove();
+
+            for (const categoryId of selectedCategoryIds) {
+                const input = $('<input>', {
+                    type: 'hidden',
+                    name: 'category[]',
+                    value: categoryId,
+                });
+
+                $searchForm.append(input);
+            }
+        });
+    }
+
+    loadTreeNodes(node, cb) {
+        $.ajax({
+            url: '/remote/v1/category-tree',
+            data: {
+                selectedCategoryId: node.id,
+                prefix: 'category',
+            },
+            success: (data) => {
+                const formattedResults = [];
+
+                data.forEach((dataNode) => {
+                    formattedResults.push(this.formatCategoryTreeForJSTree(dataNode));
+                });
+
+                cb(formattedResults);
+            },
+        });
+    }
+
+    createCategoryTree($container) {
+        const treeOptions = {
+            core: {
+                data: (node, cb) => {
+                    // Root node
+                    if (node.id === '#') {
+                        cb(this.categoryTreeData);
+                    } else {
+                        // Lazy loaded children
+                        this.loadTreeNodes(node, cb);
+                    }
+                },
+                themes: {
+                    icons: true,
+                },
+            },
+            checkbox: {
+                three_state: false,
+            },
+            plugins: [
+                'checkbox',
+            ],
+        };
+
+        $container.jstree(treeOptions);
+    }
+
+    initFacetedSearch() {
+        const $productListingContainer = $('#product-listing-container');
+        const $facetedSearchContainer = $('#faceted-search-container');
+        const $searchHeading = $('#search-results-heading');
+        const $searchCount = $('#search-results-product-count');
+        const productsPerPage = this.context.searchProductsPerPage;
+        const requestOptions = {
+            template: {
+                productListing: 'search/product-listing',
+                sidebar: 'search/sidebar',
+                heading: 'search/heading',
+                productCount: 'search/product-count',
+            },
+            config: {
+                product_results: {
+                    limit: productsPerPage,
+                },
+            },
+            showMore: 'search/show-more',
+        };
+
+        this.facetedSearch = new FacetedSearch(requestOptions, (content) => {
+            $productListingContainer.html(content.productListing);
+            $facetedSearchContainer.html(content.sidebar);
+            $searchHeading.html(content.heading);
+            $searchCount.html(content.productCount);
+
+            $('html, body').animate({
+                scrollTop: 0,
+            }, 100);
+        });
+    }
+
+    initValidation($form) {
+        this.$form = $form;
+        this.validator = nod({
+            submit: $form,
+        });
+
+        return this;
+    }
+
+    bindValidation($element) {
+        if (this.validator) {
+            this.validator.add({
+                selector: $element,
+                validate: 'presence',
+                errorMessage: $element.data('error-message'),
+            });
+        }
+
+        return this;
+    }
+
+    check() {
+        if (this.validator) {
+            this.validator.performCheck();
+            return this.validator.areAll('valid');
+        }
+
+        return false;
+    }
 }

@@ -1,0 +1,34 @@
+<img class="main-bg-img" src="{{cdn 'assets/img/bg.jpg'}}" />
+{{#if banners.top}}
+<div class="banners" data-banner-location="top">
+    <div class="banner">
+        {{{limit banners.top 1}}}
+    </div>
+</div>
+{{/if}}
+<header class="header" role="banner">
+    <div class="container">
+        <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="menu">
+            <span class="mobileMenu-toggleIcon">Toggle menu</span>
+        </a>
+        {{#if template '===' 'pages/home'}}
+            <h1 class="header-logo header-logo--{{theme_settings.logo-position}}">
+                {{> components/common/store-logo}}
+            </h1>
+        {{else}}
+            <div class="header-logo header-logo--{{theme_settings.logo-position}}">
+                {{> components/common/store-logo}}
+            </div>
+        {{/if}}
+        {{> components/common/topmenu}}
+        <div class="mobile-cart">
+            <a href="{{urls.cart}}">
+                <span class="countPill{{#if cart.items}} countPill--positive{{/if}} cart-quantity">{{cart.quantity}}</span>
+            </a>
+        </div>
+        {{{region name="header_bottom"}}}
+        <div class="navPages-container" id="menu" data-menu>
+            {{> components/common/navigation-menu}}
+        </div>
+    </div>
+</header>

@@ -1,0 +1,23 @@
+<div class="topmenu-phone">
+    <div class="topmenu">
+        <ul class="ulFirst">
+            <li class="cartimg"><a href="{{urls.cart}}">Shopping Cart <span></span></a></li>
+            <li>&nbsp;|&nbsp;</li>
+            <li class="ulsecondlast">
+                <a href="{{urls.checkout}}">Checkout</a>
+            </li>
+        </ul>
+        <ul class="ulsecond">
+            {{#if customer}}
+            <li><a href="{{urls.account.index}}" title="View My Account">My Account</a></li>
+            {{else}}
+            <li><a href="{{urls.auth.login}}" title="Login">Log In</a></li>
+            <li><a href="{{urls.auth.create_account}}">Register</a></li>
+            {{/if}}
+        </ul>
+    </div>
+    <div class="phoneIcon">
+        <span>Call:</span><a href="tel:1-888-670-5570">1-888-670-5570</a><br><span>Text:</span><a href="tel:1-310-962-9184">1-310-962-9184</a>
+    </div>
+    {{> components/common/sloyalty_statusbar}}
+</div>

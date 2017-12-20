@@ -1,5 +1,3 @@
-/*! Theme: Mogul v1.1.0 */
-/* scss-combine:core/optimized-checkout */
 // =============================================================================
 // Stencil Checkout - Customize the Optimized Single-Page Checkout experience
 // =============================================================================
@@ -18,19 +16,19 @@
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-header {
-  background-color: stencilColor("optimizedCheckout-header-backgroundColor");
-  // scss-lint:disable StringQuotes
-  background-image: url(stencilImage('optimizedCheckout-backgroundImage', 'optimizedCheckout-backgroundImage-size'));
-  // scss-lint:enable StringQuotes
-  background-size: cover;
+    background-color: stencilColor("optimizedCheckout-header-backgroundColor");
+    // scss-lint:disable StringQuotes
+    background-image: url(stencilImage('optimizedCheckout-backgroundImage', 'optimizedCheckout-backgroundImage-size'));
+    // scss-lint:enable StringQuotes
+    background-size: cover;
 
-  //
-  // TODO:
-  // Configure media query to be 'desktop' breakpoint size
-  // -----------------------------------------------------------------------------
-  @media (min-width: 801px) {
-    text-align: stencilString("optimizedCheckout-logo-position");
-  }
+    //
+    // TODO:
+    // Configure media query to be 'desktop' breakpoint size
+    // -----------------------------------------------------------------------------
+    @media (min-width: 801px) {
+        text-align: stencilString("optimizedCheckout-logo-position");
+    }
 }
 
 //
@@ -41,15 +39,15 @@
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-headingPrimary {
-  color: stencilColor("optimizedCheckout-headingPrimary-color");
-  font-family: stencilFontFamily("optimizedCheckout-headingPrimary-font"), Arial, Helvetica, sans-serif;
-  font-weight: stencilFontWeight("optimizedCheckout-headingPrimary-font");
+    color: stencilColor("optimizedCheckout-headingPrimary-color");
+    font-family: stencilFontFamily("optimizedCheckout-headingPrimary-font"), Arial, Helvetica, sans-serif;
+    font-weight: stencilFontWeight("optimizedCheckout-headingPrimary-font");
 }
 
 .optimizedCheckout-headingSecondary {
-  color: stencilColor("optimizedCheckout-headingSecondary-color");
-  font-family: stencilFontFamily("optimizedCheckout-headingSecondary-font"), Arial, Helvetica, sans-serif;
-  font-weight: stencilFontWeight("optimizedCheckout-headingSecondary-font");
+    color: stencilColor("optimizedCheckout-headingSecondary-color");
+    font-family: stencilFontFamily("optimizedCheckout-headingSecondary-font"), Arial, Helvetica, sans-serif;
+    font-weight: stencilFontWeight("optimizedCheckout-headingSecondary-font");
 }
 
 //
@@ -58,11 +56,11 @@
 // -----------------------------------------------------------------------------
 
 body {
-  background-color: stencilColor("optimizedCheckout-body-backgroundColor");
+    background-color: stencilColor("optimizedCheckout-body-backgroundColor");
 }
 
 .optimizedCheckout-overlay {
-  background-color: stencilColor("optimizedCheckout-body-backgroundColor");
+    background-color: stencilColor("optimizedCheckout-body-backgroundColor");
 }
 
 //
@@ -73,15 +71,15 @@ body {
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-contentPrimary {
-  color: stencilColor("optimizedCheckout-contentPrimary-color");
-  font-family: stencilFontFamily("optimizedCheckout-contentPrimary-font"), Arial, Helvetica, sans-serif;
-  font-weight: stencilFontWeight("optimizedCheckout-contentPrimary-font");
+    color: stencilColor("optimizedCheckout-contentPrimary-color");
+    font-family: stencilFontFamily("optimizedCheckout-contentPrimary-font"), Arial, Helvetica, sans-serif;
+    font-weight: stencilFontWeight("optimizedCheckout-contentPrimary-font");
 }
 
 .optimizedCheckout-contentSecondary {
-  color: stencilColor("optimizedCheckout-contentSecondary-color");
-  font-family: stencilFontFamily("optimizedCheckout-contentSecondary-font"), Arial, Helvetica, sans-serif;
-  font-weight: stencilFontWeight("optimizedCheckout-contentSecondary-font");
+    color: stencilColor("optimizedCheckout-contentSecondary-color");
+    font-family: stencilFontFamily("optimizedCheckout-contentSecondary-font"), Arial, Helvetica, sans-serif;
+    font-weight: stencilFontWeight("optimizedCheckout-contentSecondary-font");
 }
 
 //
@@ -91,24 +89,24 @@ body {
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-buttonPrimary {
-  background-color: stencilColor("optimizedCheckout-buttonPrimary-backgroundColor");
-  border-color: stencilColor("optimizedCheckout-buttonPrimary-borderColor");
-  color: stencilColor("optimizedCheckout-buttonPrimary-color");
-  font-family: stencilFontFamily("optimizedCheckout-buttonPrimary-font"), Arial, Helvetica, sans-serif;
-  font-weight: stencilFontWeight("optimizedCheckout-buttonPrimary-font");
+    background-color: stencilColor("optimizedCheckout-buttonPrimary-backgroundColor");
+    border-color: stencilColor("optimizedCheckout-buttonPrimary-borderColor");
+    color: stencilColor("optimizedCheckout-buttonPrimary-color");
+    font-family: stencilFontFamily("optimizedCheckout-buttonPrimary-font"), Arial, Helvetica, sans-serif;
+    font-weight: stencilFontWeight("optimizedCheckout-buttonPrimary-font");
 
-  &:focus,
-  &:hover {
-    background-color: stencilColor("optimizedCheckout-buttonPrimary-backgroundColorHover");
-    border-color: stencilColor("optimizedCheckout-buttonPrimary-borderColorHover");
-    color: stencilColor("optimizedCheckout-buttonPrimary-colorHover");
-  }
+    &:focus,
+    &:hover {
+        background-color: stencilColor("optimizedCheckout-buttonPrimary-backgroundColorHover");
+        border-color: stencilColor("optimizedCheckout-buttonPrimary-borderColorHover");
+        color: stencilColor("optimizedCheckout-buttonPrimary-colorHover");
+    }
 
-  &:active {
-    background-color: stencilColor("optimizedCheckout-buttonPrimary-backgroundColorHover");
-    border-color: stencilColor("optimizedCheckout-buttonPrimary-borderColorHover");
-    color: stencilColor("optimizedCheckout-buttonPrimary-colorHover");
-  }
+    &:active {
+        background-color: stencilColor("optimizedCheckout-buttonPrimary-backgroundColorActive");
+        border-color: stencilColor("optimizedCheckout-buttonPrimary-borderColorActive");
+        color: stencilColor("optimizedCheckout-buttonPrimary-colorActive");
+    }
 }
 
 //
@@ -118,11 +116,11 @@ body {
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-buttonSecondary {
-  background-color: stencilColor("optimizedCheckout-buttonSecondary-backgroundColor");
-  border-color: stencilColor("optimizedCheckout-buttonSecondary-borderColor");
-  color: stencilColor("optimizedCheckout-buttonSecondary-color");
-  font-family: stencilFontFamily("optimizedCheckout-buttonSecondary-font"), Arial, Helvetica, sans-serif;
-  font-weight: stencilFontWeight("optimizedCheckout-buttonSecondary-font");
+    background-color: stencilColor("optimizedCheckout-buttonSecondary-backgroundColor");
+    border-color: stencilColor("optimizedCheckout-buttonSecondary-borderColor");
+    color: stencilColor("optimizedCheckout-buttonSecondary-color");
+    font-family: stencilFontFamily("optimizedCheckout-buttonSecondary-font"), Arial, Helvetica, sans-serif;
+    font-weight: stencilFontWeight("optimizedCheckout-buttonSecondary-font");
 }
 
 //
@@ -131,9 +129,9 @@ body {
 // -----------------------------------------------------------------------------
 
 a {
-  color: stencilColor("optimizedCheckout-link-color");
-  font-family: stencilFontFamily("optimizedCheckout-link-font"), Arial, Helvetica, sans-serif;
-  font-weight: stencilFontWeight("optimizedCheckout-link-font");
+    color: stencilColor("optimizedCheckout-link-color");
+    font-family: stencilFontFamily("optimizedCheckout-link-font"), Arial, Helvetica, sans-serif;
+    font-weight: stencilFontWeight("optimizedCheckout-link-font");
 }
 
 //
@@ -142,7 +140,7 @@ a {
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-orderSummary {
-  background-color: stencilColor("optimizedCheckout-orderSummary-backgroundColor");
+    background-color: stencilColor("optimizedCheckout-orderSummary-backgroundColor");
 }
 
 //
@@ -152,16 +150,15 @@ a {
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-step {
-  background-color: stencilColor("optimizedCheckout-step-backgroundColor");
-  color: stencilColor("optimizedCheckout-step-textColor");
+    background-color: stencilColor("optimizedCheckout-step-backgroundColor");
 
-  &::before {
-    color: stencilColor("optimizedCheckout-step-textColor");
-  }
+    &::before {
+        color: stencilColor("optimizedCheckout-step-textColor");
+    }
 
-  svg {
-    fill: currentColor;
-  }
+    svg {
+        fill: stencilColor("optimizedCheckout-step-textColor");
+    }
 }
 
 //
@@ -171,7 +168,7 @@ a {
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-form-label {
-  color: stencilColor("optimizedCheckout-contentSecondary-color");
+    color: stencilColor("optimizedCheckout-form-textColor");
 }
 
 //
@@ -181,8 +178,8 @@ a {
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-form-input {
-  background-color: stencilColor("optimizedCheckout-formField-backgroundColor");
-  border-color: stencilColor("optimizedCheckout-formField-borderColor");
+    background-color: stencilColor("optimizedCheckout-formField-backgroundColor");
+    border-color: stencilColor("optimizedCheckout-formField-borderColor");
 }
 
 //
@@ -192,13 +189,12 @@ a {
 // -----------------------------------------------------------------------------
 
 .optimizedCheckout-discountBanner {
-  background-color: stencilColor("optimizedCheckout-discountBanner-backgroundColor");
-  color: stencilColor("optimizedCheckout-discountBanner-textColor");
-  font-family: stencilFontFamily("optimizedCheckout-link-font"), Arial, Helvetica, sans-serif;
-  font-weight: stencilFontWeight("optimizedCheckout-link-font");
+    background-color: stencilColor("optimizedCheckout-discountBanner-backgroundColor");
+    color: stencilColor("optimizedCheckout-discountBanner-textColor");
+    font-family: stencilFontFamily("optimizedCheckout-link-font"), Arial, Helvetica, sans-serif;
+    font-weight: stencilFontWeight("optimizedCheckout-link-font");
 
-  svg {
-    fill: stencilColor("optimizedCheckout-discountBanner-iconColor");
-  }
+    svg {
+        fill: stencilColor("optimizedCheckout-discountBanner-iconColor");
+    }
 }
-

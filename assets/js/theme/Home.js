@@ -1,14 +1,3 @@
-import Carousel from './components/Carousel';
-import 'flickity';
+import PageManager from './page-manager';
 
-export default class Home {
-  constructor(context) {
-    this.context = context;
-
-    this.Carousel = new Carousel(this.context);
-  }
-
-  unload() {
-    //remove all event handlers
-  }
-}
+export default class Home extends PageManager {}

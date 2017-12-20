@@ -1,0 +1,42 @@
+// =============================================================================
+// BUTTONS (CSS)
+// =============================================================================
+
+.button {
+    line-height: 1rem;
+    transition: all 0.15s ease;
+    + .button {
+        margin-left: 0;
+        @include breakpoint("medium") {
+            margin-left: spacing("half");
+        }
+    }
+}
+.button--primary {
+    background: linear-gradient(to bottom,  #8bc33e 0%,#479d3c 100%);
+    border: 0;
+    border-radius: 0;
+    &:hover {
+        background: linear-gradient(to bottom,  #777777 0%,#333333 100%);
+    }
+    &:active {
+        background: linear-gradient(to bottom,  #777777 0%,#333333 100%);
+        border: 0;
+    }
+}
+.button[disabled] {
+    cursor: not-allowed;
+}
+.button--icon {
+    svg {
+        fill: stencilColor("button--icon-svg-color");
+    }
+}
+.checkout-button {
+    background: url('../img/stanwood_btns.png') 0 -422px no-repeat !important;
+    border: 0;
+    border-radius: 0;
+    height: remCalc(72);
+    text-indent: -999rem;
+    width: remCalc(253);
+}

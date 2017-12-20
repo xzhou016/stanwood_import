@@ -1,39 +1,40 @@
 ---
 brand:
-  shop_by_price: true
-  products:
-    limit: {{theme_settings.product-count}}
+    products:
+        limit: {{theme_settings.brandpage_products_per_page}}
 ---
-
-{{#partial "page"}}
-  {{> components/breadcrumbs}}
-
-  <h1 class="section-title products-section-title category-page-title">{{brand.name}}</h1>
-
-  {{#if brand.faceted_search_enabled}}
-    <div class="category-page-header">
-      <span class="category-product-total-refine">
-        {{> components/refine-toggle}}
-        <span class="category-product-total">{{{lang 'category.product_total' num=brand.products.length}}}</span>
-      </span>
-
-      <div class="mobile-category-filters" data-faceted-search data-category-sidebar>
-        {{> components/brand/filters}}
-      </div>
-
-      {{> components/faceted-search/sort
-        sort=pagination.brand.sort
-      }}
-      <div class="faceted-search-selected" data-faceted-search-selected>
-        {{#if brand.faceted_search_enabled}}
-          {{> components/brand/selected}}
-        {{/if}}
-      </div>
-    </div>
-  {{/if}}
-
-  {{> components/brand/products}}
-  {{> components/brand/pagination}}
+{{inject "brandProductsPerPage" theme_settings.brandpage_products_per_page}}
+{{#partial "head"}}
+    {{#if pagination.brand.previous}}
+        <link rel="prev" href="{{pagination.brand.previous}}">
+    {{/if}}
+    {{#if pagination.brand.next}}
+        <link rel="next" href="{{pagination.brand.next}}">
+    {{/if}}
 {{/partial}}
-
+{{#partial "page"}}
+    <div class="main full">
+        <aside class="page-sidebar" id="faceted-search-container">
+            {{> components/brand/sidebar}}
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+            {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+            {{#if brand.image}}
+                <img src="{{getImage brand.image 'thumb_size'}}">
+            {{/if}}
+            <h1 class="page-heading">{{brand.name}}</h1>
+            {{{snippet 'brand'}}}
+            <div class="page">
+                <main class="page-content" id="product-listing-container">
+                    {{#if brand.products}}
+                        {{> components/brand/product-listing}}
+                    {{else}}
+                        <p>{{lang 'brands.no_products'}}</p>
+                    {{/if}}
+                </main>
+            </div>
+        </div>
+    </div>
+{{/partial}}
 {{> layout/base}}

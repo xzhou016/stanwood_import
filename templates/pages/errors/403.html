@@ -1,17 +1,21 @@
 {{#partial "page"}}
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+			{{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+			<main class="page">
+			    <section class="page-content">
+			        <h1 class="page-heading">{{lang 'forbidden.page_heading'}}</h1>
+			        <p class="u-textAlignCenter">
+			            {{lang 'forbidden.message'}}
+			        </p>
 
-<article class="page-container">
-
-  <div class="page-header">
-    <h1 class="page-title">{{lang 'errors.403.title'}}</h1>
-  </div>
-
-  <div class="page-content">
-    <h4>{{lang 'errors.403.message'}}</h4>
-  </div>
-
-</article>
-
+			        {{> components/common/search-box}}
+			    </section>
+			</main>
+        </div>
+    </div>
 {{/partial}}
-
 {{> layout/base}}

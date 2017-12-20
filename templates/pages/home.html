@@ -1,40 +1,52 @@
 ---
-carousel: true
-cart: true
 products:
-  featured:
-    limit: {{theme_settings.homepage_featured_products_limit}}
-  new:
-    limit: {{theme_settings.homepage_new_products_limit}}
-  top_sellers:
-    limit: {{theme_settings.homepage_popular_products_limit}}
+    new:
+        limit: {{theme_settings.homepage_new_products_count}}
+    featured:
+        limit: {{theme_settings.homepage_featured_products_count}}
+    top_sellers:
+        limit: {{theme_settings.homepage_top_products_count}}
+carousel: {{theme_settings.homepage_show_carousel}}
 blog:
-  recent_posts:
-    limit: {{theme_settings.homepage_blog_article_limit}}
-    summary: 250
+    recent_posts:
+        limit: {{theme_settings.homepage_blog_posts_count}}
 ---
-
 {{#partial "page"}}
-
-  {{#if carousel}}
-    {{inject 'carouselDelay' carousel.swap_frequency}}
-  {{/if}}
-
-  {{#if products.featured}}
-    {{> components/product/products-featured products=products.featured theme_settings=theme_settings}}
-  {{/if}}
-  {{#if products.new}}
-    {{> components/product/products-new products=products.new theme_settings=theme_settings}}
-  {{/if}}
-  {{#if products.top_sellers}}
-    {{> components/product/products-popular products=products.top_sellers theme_settings=theme_settings}}
-  {{/if}}
-
-  {{#if settings.blog_enabled}}
-    {{#if theme_settings.homepage_blog_article_limit}}
-      {{> components/blog/recent-posts}}
-    {{/if}}
-  {{/if}}
+    {{#each shipping_messages}}
+        {{> components/common/alert-info message}}
+    {{/each}}
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+            {{#if carousel}}
+                {{> components/carousel}}
+            {{/if}}
+            {{{snippet 'home_content'}}}
+            {{> components/common/home-welcome}}
+            {{#if products.featured}}
+                {{> components/products/featured products=products.featured columns=theme_settings.homepage_featured_products_column_count}}
+            {{/if}}
+            {{#if products.top_sellers}}
+                {{> components/products/top products=products.top_sellers columns=theme_settings.homepage_top_products_column_count}}
+            {{/if}}
+            {{#if products.new}}
+                {{> components/products/new products=products.new columns=theme_settings.homepage_new_products_column_count}}
+            {{/if}}
+            <div class="yotpo yotpo-reviews-carousel" data-mode="most_recent" data-type="product" data-count="9" data-show-bottomline="1" data-autoplay-enabled="1" data-autoplay-speed="3000" data-show-navigation="1" data-header-customisation-alignment="left" data-background-color="#ffffff"></div>​
+        </div>
+    </div>
 {{/partial}}
-
+$.notify({
+    title: 'Service updata',
+    message: 'All orders placed before Thursday using UPS Ground or USPS arrive before Christmas.'
+},{
+    type: 'pastel-warning',
+    delay: 5000,
+    template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+        '<span data-notify="title">{1}</span>' +
+        '<span data-notify="message">{2}</span>' +
+    '</div>'
+});
 {{> layout/base}}

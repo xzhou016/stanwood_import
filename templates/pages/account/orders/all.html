@@ -1,13 +1,38 @@
+---
+customer:
+    orders:
+        limit: 10
+---
 {{#partial "page"}}
-
-  <div class="account-container">
-    {{> components/breadcrumbs}}
-
-    {{> core/account/orders/all}}
-  </div>
-
-{{{snippet 'account'}}}
-
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+            {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+            <h1 class="page-heading">{{lang 'account.orders.heading' }}</h1>
+            {{> components/account/navigation account_page='orders'}}
+            <main class="account">
+                <div class="account-head">
+                    {{#if customer.store_credit.value '>' 0}}
+                        <div class="alertBox alertBox--storeCredit">
+                            {{{lang 'common.store_credit' store_credit=customer.store_credit.formatted}}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="account-body">
+                    <section class="account-content">
+                        {{#if customer.orders.length}}
+                            {{> components/account/orders-list orders=customer.orders}}
+                            {{> components/common/small-paginator pagination.orders}}
+                        {{else}}
+                            {{> components/common/alert-info (lang 'account.orders.none')}}
+                        {{/if}}
+                    </section>
+                </div>
+                {{{snippet 'account'}}}
+            </main>
+        </div>
+    </div>
 {{/partial}}
-
 {{> layout/base}}

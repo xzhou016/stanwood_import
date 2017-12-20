@@ -1,0 +1,30 @@
+<section class="heroCarousel"
+    data-slick='{
+        "dots": false,
+        "mobileFirst": true,
+        "slidesToShow": 1,
+        "slidesToScroll": 1,
+        "autoplay": true,
+        "autoplaySpeed": {{carousel.swap_frequency}},
+        "fade": true
+    }'>
+    {{#each carousel.slides}}
+    <div class="heroCarousel-slide {{#if ../theme_settings.homepage_stretch_carousel_images}}heroCarousel-slide--stretch{{/if}}"
+        style="background-image: url({{image}})">
+        <a href="{{url}}">
+            <img class="heroCarousel-image" src="{{image}}" alt="{{alt_text}}" title="{{alt_text}}"/>
+            {{#if heading}}
+                {{> components/carousel-content show_background=true}}
+            {{else}}
+                {{#if text}}
+                    {{> components/carousel-content show_background=true}}
+                {{else}}
+                    {{#if button_text}}
+                        {{> components/carousel-content show_background=false}}
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        </a>
+    </div>
+    {{/each}}
+</section>

@@ -1,20 +1,21 @@
-{{#partial "page"}}
-  <article class="page-container page-maintenance">
-    <div class="page-header">
-      <h1 class="page-title">{{lang 'core.unavailable.maintenance_heading'}}</h1>
-    </div>
-
-    <div class="container">
-      <div class="page-content rte maintenance-message">
-        {{#if settings.maintenance.message}}
-          {{{settings.maintenance.message}}}
-        {{else}}
-          {{lang 'core.unavailable.maintenance_message'}}
-        {{/if}}
-      </div>
-    </div>
-  </article>
-
+{{#partial "head"}}
+    {{{stylesheet 'assets/css/maintenance.css'}}}
 {{/partial}}
-
-{{> core/unavailable/layout}}
+{{#partial "page"}}
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+		    <main>
+		        <header>
+		            <h1>{{lang 'maintenance.down'}}</h1>
+		        </header>
+		        <section><p>{{{settings.maintenance.message}}}</p></section>
+		        <section></section>
+		        <footer><small></small></footer>
+		    </main>
+        </div>
+    </div>
+{{/partial}}
+{{> layout/empty}}

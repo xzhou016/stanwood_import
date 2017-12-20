@@ -1,46 +1,48 @@
 ---
 category:
-  shop_by_price: true
-  products:
-    limit: {{theme_settings.product-count}}
+    shop_by_price: true
+    products:
+        limit: {{theme_settings.categorypage_products_per_page}}
 ---
-
-{{#partial "page"}}
-  {{> components/breadcrumbs}}
-
-  {{#if category.image}}
-    <div class="products-section-image" style="background-image: url({{getImage category.image 'large'}});"></div>
-  {{/if}}
-  <h1 class="category-page-title products-section-title section-title">{{category.name}}</h1>
-  {{#if category.description}}
-    <div class="products-section-description">{{{category.description}}}</div>
-  {{/if}}
-  <hr class="category-divider">
-  {{#if category.faceted_search_enabled}}
-    <div class="category-page-header">
-      <span class="category-product-total-refine">
-        {{> components/refine-toggle}}
-        <span class="category-product-total">{{{lang 'category.product_total' num=category.products.length}}}</span>
-      </span>
-
-      <div class="mobile-category-filters" data-faceted-search data-category-sidebar>
-        {{> components/category/filters}}
-      </div>
-
-      <hr class="mobile-sort-divider">
-
-      {{> components/faceted-search/sort
-        sort=pagination.category.sort
-      }}
-      <div class="faceted-search-selected" data-faceted-search-selected>
-        {{#if category.faceted_search_enabled}}
-          {{> components/category/selected}}
-        {{/if}}
-      </div>
-    </div>
-  {{/if}}
-  {{> components/category/products}}
-  {{> components/category/pagination}}
+{{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
+{{#partial "head"}}
+    {{#if pagination.category.previous}}
+        <link rel="prev" href="{{pagination.category.previous}}">
+    {{/if}}
+    {{#if pagination.category.next}}
+        <link rel="next" href="{{pagination.category.next}}">
+    {{/if}}
 {{/partial}}
-
+{{#partial "page"}}
+    <div class="main full">
+        <aside class="page-sidebar" id="faceted-search-container">
+            {{#or category.subcategories category.faceted_search_enabled}}
+                {{components/category/sidebar}}
+            {{else}}
+                {{#if theme_settings.shop_by_price_visible}}
+                    {{> components/category/sidebar}}
+                {{/if}}
+            {{/or}}
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+            {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+            {{#if category.image}}
+                <img src="{{getImage category.image 'zoom_size'}}">
+            {{/if}}
+            <h1 class="page-heading">{{category.name}}</h1>
+            {{{category.description}}}
+            {{{snippet 'categories'}}}
+            <div class="page">
+                <main class="page-content" id="product-listing-container">
+                    {{#if category.products}}
+                        {{> components/category/product-listing}}
+                    {{else}}
+                        <p>{{lang 'categories.no_products'}}</p>
+                    {{/if}}
+                </main>
+            </div>
+        </div>
+    </div>
+{{/partial}}
 {{> layout/base}}

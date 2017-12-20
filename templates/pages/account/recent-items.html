@@ -1,11 +1,23 @@
 {{#partial "page"}}
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+			<div class="account">
+			    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+			    <h2 class="page-heading">{{lang 'account.recent_items.heading' }}</h2>
+			    {{> components/account/navigation account_page='recent_items'}}
 
-  <div class="account-container">
-    {{> components/breadcrumbs}}
+			    {{#unless customer.recently_viewed_products.items}}
+			        {{> components/common/alert-info (lang 'account.recent_items.no_items')}}
+			    {{/unless}}
 
-    {{> core/account/recent-items}}
-  </div>
-
+			    <form action="{{urls.compare}}" method="post">
+			        {{> components/products/grid products=customer.recently_viewed_products.items show_compare=customer.recently_viewed_products.show_compare}}
+			    </form>
+			</div>
+        </div>
+    </div>
 {{/partial}}
-
 {{> layout/base}}

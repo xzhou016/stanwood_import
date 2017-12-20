@@ -1,11 +1,20 @@
 {{#partial "page"}}
-
-  <div class="account-container">
-    {{> components/breadcrumbs}}
-
-    {{> core/account/return-saved}}
-  </div>
-
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+			<div class="account">
+			    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+			    <h2 class="page-heading">{{lang 'account.returns.heading' }}</h2>
+			    {{> components/account/navigation account_page='returns'}}
+			    <div class="account-row">
+			        <p>
+			            {{lang 'account.returns.successful'}}
+			        </p>
+			    </div>
+			</div>
+        </div>
+    </div>
 {{/partial}}
-
 {{> layout/base}}

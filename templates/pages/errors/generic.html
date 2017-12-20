@@ -1,17 +1,16 @@
 {{#partial "page"}}
-
-<article class="page-container">
-
-  <div class="page-header">
-    <h1 class="page-title">{{lang 'errors.generic.title'}}</h1>
-  </div>
-
-  <div class="page-content">
-    <h4>{{lang 'errors.generic.message'}}</h4>
-  </div>
-
-</article>
-
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+			<main class="page">
+			    <section class="page-content">
+			        <h1 class="page-heading">{{lang 'server_error.page_heading'}}</h1>
+			        <p class="u-textAlignCenter">{{lang 'server_error.message'}}</p>
+			    </section>
+			</main>
+        </div>
+    </div>
 {{/partial}}
-
 {{> layout/base}}

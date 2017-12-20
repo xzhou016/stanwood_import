@@ -1,0 +1,10 @@
+<div class="side-categories">
+    <h4>Department</h4>
+    <ul class="navPages-list{{#if theme_settings.navigation_design '!==' 'simple'}} navPages-list-depth-max{{/if}}">
+        {{#each categories}}
+        <li class="navPages-item{{#if children}} has-children{{/if}}">
+            {{> components/common/navigation-list-alternate}}
+        </li>
+        {{/each}}
+    </ul>
+</div>

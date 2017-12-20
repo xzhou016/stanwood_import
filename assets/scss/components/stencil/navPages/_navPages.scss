@@ -1,0 +1,442 @@
+// Page Navigation
+// -----------------------------------------------------------------------------
+//
+// Purpose: Contains the styles for the page navigation, deals with 2 viewsdue to
+// responsive layout of that navigation
+//
+// 1. It's not exactly a grid row, as it's a little further down the DOM tree, but
+// I use it here to grab the max width centering.
+// 2. Prevent document scrolling by clipping its body
+// 3. Prevent inertia scrolling of document
+//
+// -----------------------------------------------------------------------------
+
+
+//
+// Shared styles for sub page navigation
+// -----------------------------------------------------------------------------
+
+%navPage-childList {
+    border-left: 1px solid $navPage-childList-borderColor;
+    margin: spacing("quarter") spacing("half");
+    padding-left: spacing("half");
+}
+
+//
+// When navPages is open
+// -----------------------------------------------------------------------------
+
+.has-activeNavPages {
+    // scss-lint:disable VendorPrefix
+    overflow: hidden; // 2
+    -webkit-overflow-scrolling: auto; // 3
+}
+
+//
+// Top level Pages navigation container
+// -----------------------------------------------------------------------------
+
+.navPages-container {
+    bottom: 0;
+    clear: both;
+    display: none;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: zIndex("lower");
+    @include breakpoint("medium") {
+        background: linear-gradient(to bottom, #777777 0%,#333333 100%);
+        display: block;
+        height: auto;
+        padding: 0;
+        position: relative;
+    }
+
+    &.is-open {
+        display: block;
+        padding-top: $header-height;
+        z-index: 0;
+    }
+}
+
+//
+// Top level Pages navigation list styles
+// -----------------------------------------------------------------------------
+
+.navPages {
+    background-color: $navPages-backgroundColor;
+    height: 100%;
+    line-height: remCalc(40);
+    overflow-y: auto;
+    padding: spacing("single");
+
+    @include breakpoint("medium") {
+        @include grid-row(); // 1
+        @include nav($style: "navBar", $wrapper: "nav");
+        background: none;
+        font-size: 0; // 1
+        overflow-y: visible;
+        padding: 0;
+        text-align: center;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .navPage-subMenu-list {
+        @extend %navPage-childList;
+
+        border-left: 0;
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0;
+        @include breakpoint("medium") {
+            @include grid-row();
+            border-left: 0;
+            margin: auto;
+            padding-left: 0;
+        }
+    }
+}
+.navPages-list {
+    margin: 0;
+    @include breakpoint("medium") {
+        border: 0;
+        line-height: remCalc(40);
+    }
+    .header & {
+        .navPages-item {
+            @include breakpoint("medium") {
+                background: url('../img/menu_sep.png') left center no-repeat;
+            }
+        }
+    }
+    .navPages-item {
+        border-bottom: 1px solid #cecece;
+        @include breakpoint("medium") {
+            border: 0;
+        }
+    }
+}
+.navPages-list-depth-max.subMenu-is-open {
+    .is-hidden {
+        display: none;
+        @include breakpoint("medium") {
+            display: inline-block;
+        }
+    }
+    .navPages-item-page {
+        @include breakpoint("medium") {
+            display: inline-block;
+        }
+    }
+}
+.navPages-action-depth-max.has-subMenu.is-root.is-open {
+    .navPages-action-moreIcon {
+        @include breakpoint("medium") {
+            transform: rotate(0);
+        }
+    }
+}
+
+.navPages-action-depth-max.has-subMenu.is-open {
+    @include breakpoint("medium") {
+        border-bottom: 0;
+        text-align: left;
+    }
+    .navPages-action-moreIcon {
+        @include breakpoint("medium") {
+            @include square(8px);
+            border: 0;
+            border-radius: 0;
+            float: none;
+            margin-top: 0;
+            padding: 0;
+            transform: rotate(-90deg);
+        }
+    }
+
+    svg {
+        @include breakpoint("medium") {
+            height: 100%;
+            width: 100%;
+        }
+    }
+}
+
+.navPages-action {
+    display: block;
+    font-size: fontSize("smaller");
+    text-decoration: none;
+    text-transform: uppercase;
+    @include breakpoint("medium") {
+        color: #ffffff;
+        display: block;
+        padding: 0 remCalc(18);
+        &.is-open {
+            @include breakpoint("medium") {
+                background-color: stencilColor("navPages-subMenu-backgroundColor");
+            }
+            // scss-lint:disable NestingDepth
+            svg {
+                fill: stencilColor("navPages-color-hover");
+                stroke: stencilColor("navPages-color-hover");
+            }
+        }
+    }
+    
+    &:hover {
+        @include breakpoint("medium") {
+            background: linear-gradient(to bottom,  #91c73e 0%,#439b3c 100%);
+            color: #ffffff;
+        }
+        svg {
+            @include breakpoint("medium") {
+                fill: #ffffff;
+                stroke: #ffffff;
+            }
+        }
+    }
+}
+.page-sidebar {
+    .navPages-action {
+        svg {
+            fill: #aa7038;
+            stroke: #aa7038;   
+        }
+        &:hover {
+            svg {
+                fill: #ffffff;
+                stroke: #ffffff;
+            }
+        }
+    }
+}
+.navPages-action--storeCredit {
+    color: stencilColor("color-textSecondary");
+}
+
+.navPages-action--compare {
+    display: none;
+
+    &.show {
+        display: block;
+    }
+}
+
+.navPages-action-moreIcon {
+    height: remCalc(20);
+    transform: rotate(90deg);
+    width: remCalc(20);
+    @include breakpoint("medium") {
+        transform: none;
+    }
+
+    .has-subMenu.is-open & {
+        transform: rotate(-90deg);
+    }
+}
+
+
+// Sub page navigation and children of sub pages
+// -----------------------------------------------------------------------------
+
+.navPage-childList {
+    @extend %navPage-childList;
+    display: none;
+
+    @include breakpoint("medium") {
+        border: 0;
+        display: block;
+    }
+
+    &.is-open {
+        display: block;
+    }
+}
+
+
+// Sub menu, first level down from top level categories
+// -----------------------------------------------------------------------------
+//
+// 1. navBar mixin has lots of decendant child selectors to deal with
+//
+// -----------------------------------------------------------------------------
+
+.navPage-subMenu {
+    background: #eaeaea;
+    border-top: 1px solid #cecece;
+    display: none;
+    outline: 0;
+    padding: 0 remCalc(10);
+    @include breakpoint("large") {
+        background: #f7f7f7;
+        border: 0;
+        height: auto;
+        left: 100%;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        width: remCalc(218);
+        z-index: 100;
+        &.is-open {
+            display: block;
+            left: 0;
+            width: 100%;
+        }
+        .navPages-action-moreIcon {
+            display: none;
+        }
+    }
+    &.is-open {
+        display: block;
+    }
+    .navPage-subMenu-list {
+        list-style: none;
+        margin: 0;
+    }
+}
+.navPage-subMenu-horizontal {
+    &.is-open {
+        @include breakpoint("medium") {
+            border-left: 1px solid stencilColor("navPages-subMenu-separatorColor");
+            display: inherit;
+            height: $navPage-subMenu-horizontal-height;
+            margin-left: $navPage-subMenu-horizontal-width;
+            padding: 0 !important; // scss-lint:disable ImportantRule
+            top: 0;
+            width: $navPage-subMenu-horizontal-width + 1;
+        }
+    }
+
+    .navPages-action-moreIcon {
+        @include breakpoint("medium") {
+            display: inline-block;
+            transform: rotate(-90deg);
+        }
+    }
+}
+
+.navPage-subMenu-item {
+    @include breakpoint("medium") {
+        // scss-lint:disable ImportantRule
+        @include grid-column(3);
+        padding: 0 0.75rem !important; // 1
+
+        .navPages-action {
+            text-transform: none;
+            width: 100%;
+        }
+        > .navPage-subMenu-action {
+            border-bottom: 1px solid stencilColor("navPages-subMenu-separatorColor");
+            margin-bottom: spacing("half") + spacing("quarter");
+        }
+    }
+}
+.navPage-subMenu-action {
+    padding: 0;
+    @include breakpoint("medium") {
+        padding: spacing("half") 0 (spacing("half") + spacing("quarter"));
+    }
+}
+
+
+//
+// Child pages of sub pages navigation lists
+// -----------------------------------------------------------------------------
+
+.navPage-childList-item {
+    @include breakpoint("medium") {
+    }
+}
+
+.navPage-childList-action {
+    font-weight: fontWeight("normal");
+    padding: 0 0 spacing("quarter");
+}
+
+
+//
+// Quick search inside the mobile nav
+// -----------------------------------------------------------------------------
+
+.navPages-quickSearch {
+    margin: 0 0 remCalc(10);
+    @include breakpoint("medium") {
+        float: left;
+        margin: 0;
+    }
+    .form {
+        margin: 0;
+        @include breakpoint("medium") {
+            margin: remCalc(7) remCalc(20);
+        }
+    }
+    .form-field {
+        margin-bottom: 0;
+        position: relative;
+    }
+    .form-input {
+        border: 1px solid #999;
+        border-radius: 5px 0 0 5px;
+        float: left;
+        height: remCalc(50);
+        width: calc(100% - 50px);
+        @include breakpoint("medium") {
+            border-radius: 0;
+            height: remCalc(25);
+            width: remCalc(180);
+        }
+    }
+    .form-submit {
+        background: url('../img/Searchheader.png') #fff center center no-repeat;
+        border: 1px solid #999;
+        border-left: 0;
+        border-radius: 0 5px 5px 0;
+        float: left;
+        height: remCalc(50);
+        width: remCalc(50);
+        @include breakpoint("medium") {
+            border-radius: 0;
+            height: remCalc(25);
+            width: remCalc(38);
+        }
+    }
+}
+
+//
+// NavPages user section for mobile nav panel
+// -----------------------------------------------------------------------------
+
+.navPages-list--user {
+    @include breakpoint("medium") {
+        display: none;
+    }
+
+    // scss-lint:disable SelectorDepth, NestingDepth, IdSelector
+    #currencySelection2 {
+        background-color: color("whites", "bright");
+        border: container("border");
+
+        .dropdown-menu-item {
+            padding: 0;
+
+            // scss-lint:disable NestingDepth
+            &:not(:last-child) {
+                border-bottom: container("border");
+            }
+        }
+
+        a {
+            padding: spacing("half") spacing("single");
+        }
+    }
+}
+.mobile-cats,
+.mobile-account {
+    @include breakpoint("medium") {
+        display: none;
+    }
+}

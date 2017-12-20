@@ -1,0 +1,149 @@
+// =============================================================================
+// CARDS (CSS)
+// =============================================================================
+//
+// 1. Allow users to click the anchor tag on the image in the figcaption empty
+//    space. This provides a much larger and simpler hit state for navigating
+//    to the product details page. (Does not work in IE10 or earlier).
+// 2. Using translate3d to counter a chrome specific bug: When using a masonry
+//    styled layout via CSS column-count etc, transforms applied to descendants
+//    are made invisible, except for 3d transforms...
+//
+// -----------------------------------------------------------------------------
+
+.card {
+    margin: 0;
+}
+.card-figure {
+    display: table;
+    height: remCalc(100);
+    margin-top: $card-figure-marginTop;
+    padding: remCalc(10) 0;
+    vertical-align: middle;
+    width: 100%;
+    > a {
+        display: table-cell;
+        height: remCalc(100);
+        vertical-align: middle;
+    }
+}
+.card-figcaption {
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    margin: $card-figcaption-margin;
+    opacity: 1;
+    padding: remCalc(10) 0;
+    pointer-events: none; // 1
+    position: relative;
+}
+.card-figcaption-body {
+    display: $card-figcaption-body-display;
+    pointer-events: all; // 1
+    top: 0;
+    transform: none;
+    &:after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+}
+.card-image {
+    border: 0;
+    display: flex;
+    margin: auto;
+    width: auto;
+}
+.card-title {
+    font-size: $card-title-fontSize;
+    margin: $card-title-margin;
+    > a {
+        color: $card-title-color;
+        text-decoration: $card-title-textDecoration;
+        // scss-lint:disable NestingDepth
+        &:hover {
+            color: $card-title-color-hover;
+        }
+    }
+}
+.card-text {
+    color: #555;
+    float: left;
+    margin-bottom: $card-text-marginBottom;
+    text-align: left;
+    width: calc(100% - 89px);
+    abbr {
+        border: 0;
+        color: inherit;
+        font-size: inherit;
+    }
+    .card-price-text {
+        color: #555;
+        display: block;
+        font-size: remCalc(12);
+    }
+    .price {
+        color: #555;
+        font-size: remCalc(18);
+        padding: 0;
+        &.price--rrp {
+            display: none;
+        }
+    }
+}
+.card-figcaption-button {
+    border: $card-figcaption-button-border;
+    display: $card-figcaption-button-display;
+    margin: $card-figcaption-button-margin;
+    &:active {
+        background-color: $card-figcaption-button-backgroundHover;
+        border: $card-figcaption-button-border;
+    }
+    + .card-figcaption-button {
+        margin: $card-figcaption-button-margin;
+    }
+    &.add-to-cart {
+        background: url('../img/addCart.png') center center no-repeat;
+        display: block;
+        float: left;
+        height: remCalc(31);
+        padding: 0;
+        text-indent: -999rem;
+        width: remCalc(89);
+    }
+}
+.card-body {
+    padding: 0;
+    text-align: center;
+}
+
+//
+// Alternate card
+//
+// Purpose: Used to give the card alternative styling
+// -----------------------------------------------------------------------------
+
+.card--alternate {
+    border: 3px solid stencilColor("card--alternate-borderColor");
+    transition: all 0.15s ease;
+    .card-body {
+        background-color: stencilColor("card--alternate-backgroundColor");
+        padding: spacing("half");
+        transition: all 0.15s ease;
+        @include breakpoint("small") {
+            padding: spacing("single");
+        }
+    }
+    &:hover {
+        border-color: stencilColor("color-primary");
+        // scss-lint:disable SelectorDepth, NestingDepth
+        .card-body {
+            background-color: stencilColor("color-primary");
+            .card-text {
+                color: stencilColor("card--alternate-color--hover");
+            }
+        }
+        .card-title > a {
+            color: stencilColor("card--alternate-color--hover");
+        }
+    }
+}

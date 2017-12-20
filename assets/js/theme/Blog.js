@@ -1,10 +1,4 @@
-export default class Blog {
-  constructor(context) {
-    this.context = context;
-  }
+import PageManager from './page-manager';
 
-  unload() {
-    //remove all event handlers
-  }
-}
+export default class Blog extends PageManager {}
 

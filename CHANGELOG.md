@@ -1,108 +1,90 @@
-# Change Log
-All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
+# Changelog
 
-## [1.1.0] - 2017-12-14
+## Draft
+- Product Images were obscuring product details on smaller viewports [#1019](https://github.com/bigcommerce/cornerstone/pull/1019)
+- Add region tags to two template files to support payments team banner integration with content service [#1023](https://github.com/bigcommerce/cornerstone/pull/1023)
+- Add on/off toggle to the theme editor for the "Shop by Price" panel located on category pages [#1036](https://github.com/bigcommerce/cornerstone/pull/1036)
+- Fix H1-H6 font-sizing [#1034](https://github.com/bigcommerce/cornerstone/pull/1034)
+- Reduce theme bundle size by using specific minified libraries [#1037](https://github.com/bigcommerce/cornerstone/pull/1037)
 
-## Added
-- If your mind is still not made up you can now change the product
-options in the cart as well!
+## 1.8.2 (2017-06-23)
+- Swaps `writeReview` for `write_review` to fix email link issue [#1017](https://github.com/bigcommerce/cornerstone/pull/1017)
+- Maintenance page stylesheet fix [#1016](https://github.com/bigcommerce/cornerstone/pull/1016)
+- Restore four products per row on category pages when sidebar is empty. [#1018](https://github.com/bigcommerce/cornerstone/pull/1018)
+- Remove gift certificate format validation [#1026](https://github.com/bigcommerce/cornerstone/pull/1026)
+- Remove usage of deprecated {{template_file}} property [#1032](https://github.com/bigcommerce/cornerstone/pull/1032)
+- Toggle displaying product description in tabs [#1030](https://github.com/bigcommerce/cornerstone/pull/1030)
+- Reinstate Quick View on product list mode when set to list view [#1033](https://github.com/bigcommerce/cornerstone/pull/1033)
 
-## [1.0.10] - 2017-12-07
+## 1.8.1 (2017-05-05)
+- Bug fix for category sidebar [#1006](https://github.com/bigcommerce/cornerstone/pull/1006)
 
-## Fixed
-- Account address form layout so fields are not out of line
-- State field required toggle, doesn't just toggle, it only toggles if it's supposed to depending on the country
+## 1.8.0 (2017-05-04)
+- Add storefront admin bar to replace store not launched preview panel [#997](https://github.com/bigcommerce/cornerstone/pull/997)
 
-## Changed
-- Added title to customized checkbox field to display consistently like other checkbox fields on the product page
-- Move contact form errors to outside of contact form avoiding form layout breaking when an error occurs on forms with flexbox layouts
+## 1.7.0 (2017-04-26)
+- Upgrade to Webpack 2 with code splitting and tree shaking [964](https://github.com/bigcommerce/cornerstone/pull/964)
+- Reflect the actual default value for `autoprefixer-browsers` [#998](https://github.com/bigcommerce/cornerstone/pull/998)
+- Fix latest node-sass issues with Citadel upgrade and conditional import swap with mixin [#999](https://github.com/bigcommerce/cornerstone/pull/999)
+- Repopulate review form fields after error [#996](https://github.com/bigcommerce/cornerstone/pull/996)
+- Fix product quick view 'Write a Review' link [#995](https://github.com/bigcommerce/cornerstone/pull/995)
+- Update bigcommerce.com footer link [#990](https://github.com/bigcommerce/cornerstone/pull/990)
+- Fix invalid icon HTML in AMP templates [#989](https://github.com/bigcommerce/cornerstone/pull/989)
+- Add new theme editor setting for SSL common name to enable GeoTrust badge to work properly [#994](https://github.com/bigcommerce/cornerstone/pull/994)
 
-## Added
-- Been missing some detail in your products? Well now you can see SKU, UPC
-Manufacturing number and wait for Global Trade Information Number right beneath
-the price.. if you want
+## 1.6.3 (2017-03-28)
+- `stencil.conf.js` was refactored to support webpack2 builds [961](https://github.com/bigcommerce/cornerstone/pull/961)
+- Load amp social share JS only when we have share icons enabled. [#968](https://github.com/bigcommerce/cornerstone/pull/968)
+- Escape html for product summaries in product list view [#980](https://github.com/bigcommerce/cornerstone/pull/980)
+- Add `customized_checkout` feature to features list [#974](https://github.com/bigcommerce/stencil/pull/974)
+- Fixed AMP Carousel alignment on product view [#982](https://github.com/bigcommerce/cornerstone/pull/982)
+- Remove footer scripts from the amp-iframe used to render product options for stores using AMP [#983](https://github.com/bigcommerce/cornerstone/pull/983)
 
-## [1.0.9] - 2017-11-16
-## Fixed
-- Account signup forms no longer default to first country
-- Account signup forms with a required checkbox no longer require all checkboxes
+## 1.6.2 (2017-03-15)
+- Fix a bug that was not updating price and weight when an option is selected [#963](https://github.com/bigcommerce/cornerstone/pull/963)
 
-## [1.0.8] - 2017-11-09
-## Changed
-- Use stencil-utils v1.0.9
-- Add package-lock.json
+## 1.6.1 (2017-03-14)
+- Fix a bug that was preventing opening the cart preview modal [#960](https://github.com/bigcommerce/cornerstone/pull/960)
 
-## [1.0.7] - 2017-10-26
-## Added
-- None is now an option for non-required multiple choice product options. Go
-  ahead, change your mind.
+## 1.6.0 (2017-03-13)
+- Google AMP support for product and category pages [#946](https://github.com/bigcommerce/cornerstone/pull/946)
+- Expose `language` object on the checkout page [#910](https://github.com/bigcommerce/cornerstone/pull/910)
+- Update package.json to disambiguate Stencil and Cornerstone [#943](https://github.com/bigcommerce/cornerstone/pull/943)
+- Added support up to 8 levels for category menu depth [#939](https://github.com/bigcommerce/cornerstone/pull/939)
+- Implement lazyloading for product card images to improve above-the-fold rendering [#944](https://github.com/bigcommerce/cornerstone/pull/944)
+- Print a readable error instead of dumping the whole error object to the console [#950](https://github.com/bigcommerce/cornerstone/pull/950)
+- Fixed homepage featured products floating left and unecessarily wrapping to next row [#948](https://github.com/bigcommerce/cornerstone/pull/948)
+- Add google recaptcha v2 support to cornerstone. [#951](https://github.com/bigcommerce/cornerstone/pull/951)
+- Added order confirmation template page [#949](https://github.com/bigcommerce/cornerstone/pull/949)
+- Added theme editor setting for product display mode (grid vs list view) [#941](https://github.com/bigcommerce/cornerstone/pull/941)
 
-## [1.0.6] - 2017-10-19
-## Fixed
-- Variant images now disappear from the slideshow/thumbnails when you navigate
-  through the slideshow, a disappearing act, how's that for variety?
-- Can now use imported gift certificate codes
-- Gap on mobile screen slideshow, no more long sullen whitespace when a
-  description is absent
+## 1.5.3 (2017-02-23)
+- Show 'Write a Review' link for mobile [#922](https://github.com/bigcommerce/cornerstone/pull/922)
+- Update text input for product review comment to be multiline so it's not too small to be usable [#921](https://github.com/bigcommerce/cornerstone/pull/921)
+- Add a larger view of a swatch image when option is hovered over on the product page [#923](https://github.com/bigcommerce/cornerstone/pull/923)
+- Fixes an issue with file upload button not properly displaying in IE [#925](https://github.com/bigcommerce/cornerstone/pull/925)
+- Make sure product review email links automatically pop the review form [#928](https://github.com/bigcommerce/cornerstone/pull/928)
+- Fixes an issue where search results would incorrectly state there were no results when there were results visible [#934](https://github.com/bigcommerce/cornerstone/pull/934)
+- Update BC logo sprite to use current BC logo [#931](https://github.com/bigcommerce/cornerstone/pull/931)
+- Fix z-index for product sale badges so they aren't above the menu [#926](https://github.com/bigcommerce/cornerstone/pull/926)
+- Auto-expand product videos on the product page if the product has at least one video [#935](https://github.com/bigcommerce/cornerstone/pull/935)
+- Fix an issue with special characters in search results for content pages [#933](https://github.com/bigcommerce/cornerstone/pull/933)
+- Fix an issue with special characters in carousel text [#932](https://github.com/bigcommerce/cornerstone/pull/932)
+- Remove an unnecessary and confusing option in theme editor [#927](https://github.com/bigcommerce/cornerstone/pull/927)
+- Fix an issue where required product list options would display an invalid "none" choice [#929](https://github.com/bigcommerce/cornerstone/pull/929)
+- Remove unused variable causing js error with search in the nav [#938](https://github.com/bigcommerce/cornerstone/pull/938)
+- Add settings to theme editor schema to customize Optimized Checkout discount banners [#924](https://github.com/bigcommerce/cornerstone/pull/924)
+- Update Optimized Checkout discount banners default values per theme variation [#942](https://github.com/bigcommerce/cornerstone/pull/942)
 
-## [1.0.5] - 2017-10-05
-## Fixed
-- Brand pages filter list actually shows all filters now, rather than hiding
-  all of them in a black hold in space
-- IE is now forced to render in non-compatibility mode, because compatibility
-  mode usually breaks everything.. Thanks IE.
+## 1.5.2 (2017-02-14)
+- Added a setting to theme editor schema to show/hide the homepage carousel [#909](https://github.com/bigcommerce/cornerstone/pull/909)
+- Prevent carousel images from being cut off on large screens by adding a new setting to theme editor schema [#909](https://github.com/bigcommerce/cornerstone/pull/909)
+- Add schema description specifying that social media icons must be set up to see them [#920](https://github.com/bigcommerce/cornerstone/pull/920)
+- Show account creation links only if it is enabled in store settings [#917](https://github.com/bigcommerce/cornerstone/pull/917)
+- Add GeoTrust SSL Seal Toggle [#903](https://github.com/bigcommerce/cornerstone/pull/903)
 
-## [1.0.4] - 2017-09-21
-
-## Fixed
-- You can now make your descriptions beautiful using markup in the product page
-  description tab. Now your lists can be bulleted and numbered! (fixes THEME-1423)
-- Marketing banners now only display one at a time randomly. Your customers will
-  be delighted with a different message every time they visit!
-- Marketing top and bottom banners now accept markup so you can make your
-  banners look pretty. Plus, the content appears in rows instead of columns.
-  Which was kind of weird...
-
-## [1.0.3] - 2017-09-07
-
-## Fixed
-- Images are no longer go into space infinitely on IE10 and 11 (fixes THEME-1405)
-- Pre-order messages now show on product pages (fixes THEME-1404)
-- Full description link has been obliterated from the quickshop description
-- Content results tab is displayed when clicking on the 'view all results' link
-  in the quick search, which is pretty neat
-- BC-Core was updated to fix account issues with passwords
-
-## Changed
-- Product Grid Image Cropping theme setting has been updated to work with IE and
-  Edge (Fill was removed)
-- Product image grid ratios have been increased from 400x400 (small) to 800x800
-  (medium), so your images are more beautiful
-
-## [1.0.2] - 2017-08-08
-
-### Fixed
-- Fixed share buttons and product tabs on product pages from overlapping on iOS
-  10.3
-- Fixed product images being cut off in iOS 10.3
-
-## [1.0.1] - 2017-08-04
-
-### Fixed
-- Fixed mobile filters overlapping on products for iOS
-- Fixed misaligned gift wrapping text on cart page and removed extra space
-- Fixed shipping calculator not updating state dropdown when recalculating
-- Fixed compare button flashing on load for category, brand, and search results
-  pages
-- Fixed layout of share buttons on product page and blog posts and Google Plus
-  icon not displaying
-- Fixed compare page rating stars not hiding when ratings display is off in
-  store admin
-- Fixed homepage carousel pagination dot displaying if there is only one slide
-
-## [1.0.0] - 2017-08-03
-
-### Added
-- Screenshots for the theme marketplace to display
-- Price information and some meta for the release
+## 1.5.1 (2017-02-07)
+- Fix an issue with a horizontal scroll bar showing in theme editor [#915](https://github.com/bigcommerce/cornerstone/pull/915)
+- Hide Gift Certificates when the setting is disabled in the control panel [#914](https://github.com/bigcommerce/cornerstone/pull/914) & [#916](https://github.com/bigcommerce/cornerstone/pull/916)
+- Fix an issue with a close button on the quick search modal on mobile [#918](https://github.com/bigcommerce/cornerstone/pull/918)
+- Adding CHANGELOG.md [#919](https://github.com/bigcommerce/cornerstone/pull/919)

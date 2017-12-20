@@ -1,31 +1,35 @@
 ---
 blog:
-  posts:
-    limit: {{theme_settings.blog-posts-per-page}}
+    posts:
+        limit: 5
+        pages: 3
+        summary: 500
 ---
-
 {{#partial "page"}}
-
-<article class="blog-container">
-
-  {{> components/breadcrumbs}}
-
-  <div class="page-header">
-    <h1 class="page-title">{{blog.name}}</h1>
-  </div>
-
-  <div class="blog-content">
-    {{#each blog.posts}}
-      {{> components/blog/blog-item this}}
-    {{/each}}
-
-    {{#if pagination.blog.links.length ">" 1}}
-      {{> components/common/pagination pagination.blog}}
-    {{/if}}
-  </div>
-
-</article>
-
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <aside class="page-sidebar">
+			<div class="recent-posts">
+				<h2>Recent Posts</h2>
+				<ul>
+					{{#each blog.posts}}
+					<li><a href="{{url}}">&raquo; {{title}}</a></li>
+					{{/each}}
+				</ul>
+			</div>
+        </aside>
+        <div class="main-content">
+			{{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+			<main class="page">
+			    <h1 class="page-heading">{{ blog.name }}</h1>
+			    {{#each blog.posts}}
+			        {{> components/blog/post post=this settings=../settings}}
+			    {{/each}}
+			    {{> components/common/paginator pagination.blog}}
+			</main>
+        </div>
+    </div>
 {{/partial}}
-
 {{> layout/base}}

@@ -1,40 +1,41 @@
----
-cart: true
----
-
 {{#partial "page"}}
-
-<article class="page-container page-narrow">
-
-  {{> components/breadcrumbs}}
-
-  <div class="page-header">
-    <h1 class="page-title">{{page.title}}</h1>
-  </div>
-
-  <div class="page-content rte">
-    {{#if page.content}}
-      {{#replace '%%Syndicate%%' page.content}}
-        {{> components/page/rss-feed}}
-      {{else}}
-        {{{page.content}}}
-      {{/replace}}
-    {{/if}}
-
-    {{#if page.feed}}
-      <ul>
-        {{#each page.feed}}
-          <li>
-            <h6><a href="{{url}}" target="_blank">{{title}}</a></h6>
-            <p>{{{content}}}</p>
-          </li>
-        {{/each}}
-      </ul>
-    {{/if}}
-  </div>
-
-</article>
-
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+            {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+            <main class="page">
+                <h1 class="page-heading">{{ page.title }}</h1>
+                {{#if page.sub_pages}}
+                <nav class="navBar navBar--sub">
+                    <ul class="navBar-section account-navigation">
+                    {{#each page.sub_pages}}
+                        <li class="navBar-item"><a class="navBar-action" href="{{url}}">{{title}}</a></li>
+                    {{/each}}
+                    </ul>
+                </nav>
+                {{/if}}
+                <div class="page-content">
+                    {{#replace '%%Syndicate%%' page.content}}
+                        {{> components/page/rss_feed}}
+                    {{else}}
+                        {{{page.content}}}
+                    {{/replace}}
+                </div>
+                {{#if page.feed}}
+                    <ul>
+                        {{#each page.feed}}
+                            <li>
+                                <h6><a href="{{url}}" target="_blank">{{title}}</a></h6>
+                                <p>{{content}}</p>
+                            </li>
+                        {{/each}}
+                    </ul>
+                {{/if}}
+            </main>
+        </div>
+    </div>
 {{/partial}}
 
 {{> layout/base}}

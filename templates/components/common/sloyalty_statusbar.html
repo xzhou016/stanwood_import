@@ -1,0 +1,16 @@
+<!--
+NOTE:
+This file contains content used by S Loyalty (www.sloyalty.com) to power your loyalty program on your storefront for this theme.
+DO NOT edit or delete this file as it would lead to service interruptions. If you have any inquiries, please contact us at support@sloyalty.com.
+-->
+<script type="text/javascript">
+     window.sloyalty = window.sloyalty || {};
+     window.sloyalty.shop = '{{settings.secure_base_url}}';
+     window.sloyalty.key = '6787bea0-90ef-4909-b025-adcaf2e78aef';
+     window.sloyalty.customer_id = '{{customer.id}}';
+     window.sloyalty.customer_email = '{{customer.email}}';
+</script>
+<script src="//s.sloyalty.com/site_media/static/dist/js/v2/sloyalty.bigcommerce.js" async="true"></script>
+<div class="sloyalty-loyalty-widget" data-key="6787bea0-90ef-4909-b025-adcaf2e78aef" data-shop="{{settings.secure_base_url}}" data-customer="{{customer.id}}" data-email="{{customer.email}}"></div>
+<div class="sloyalty-referral-widget" data-key="6787bea0-90ef-4909-b025-adcaf2e78aef" data-shop="{{settings.secure_base_url}}" data-customer="{{customer.id}}" data-email="{{customer.email}}"></div>
+<div class="sloyalty-standalone-share-widget" data-key="6787bea0-90ef-4909-b025-adcaf2e78aef" data-shop="{{settings.secure_base_url}}" data-customer="{{customer.id}}" data-email="{{customer.email}}"></div>

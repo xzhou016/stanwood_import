@@ -1,0 +1,38 @@
+// =============================================================================
+// BREADCRUMBS (CSS)
+// =============================================================================
+//
+//
+// 1. Hide breadcrumbs on mobile-sized screens to improve screen real estate.
+//
+//
+// -----------------------------------------------------------------------------
+
+
+.breadcrumbs {
+    display: none; // 1
+    line-height: 1;
+    margin: 0 0 remCalc(10);
+    @include breakpoint("small") {
+        display: block; // 1
+    }
+}
+.breadcrumb {
+    display: inline-block;
+    float: none;
+    font-size: remCalc(13);
+    line-height: initial;
+    &.is-active {
+        // scss-lint:disable NestingDepth
+        > .breadcrumb-label {
+            color: stencilColor("navUser-color");
+            cursor: text;
+        }
+    }
+    a {
+        color: #666;
+    }
+}
+.breadcrumb-label {
+    text-decoration: none;
+}

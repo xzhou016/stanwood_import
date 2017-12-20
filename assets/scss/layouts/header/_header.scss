@@ -1,0 +1,315 @@
+// =============================================================================
+// HEADER (CSS)
+//
+// 1. Setting font size of header-logo to 0, since wrapper element may vary, and
+//    inline-block whitespace messes with header height. Font-size is reset to
+//    appropriate size on header-logo-text.
+// 2. Needs left/right margin so it doesn't cover left/right nav bar toggles
+// 3. Offset the letter-spacing on the last character by adding a right negative
+//    margin. This centers the text logo properly.
+// 4. When the word "cart" is added to the mobile header's cart link, add more
+//    margin to compensate.
+//
+// -----------------------------------------------------------------------------
+
+.header {
+    background: #fff;
+    border-bottom: 1px solid #cecece;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    @include breakpoint("medium") {
+        border: 0;
+        background-color: transparent;
+        position: relative;
+    }
+    &.is-open {
+        height: 100%;
+
+        @include breakpoint("medium") {
+            height: auto;
+        }
+    }
+    > .container {
+        display: table;
+    }
+}
+.main-bg-img {
+    min-height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+}
+.header-logo {
+    display: table-cell;
+    text-align: center;
+    width: calc(100% - 120px);
+    vertical-align: middle;
+    @include breakpoint("medium") {
+        display: block;
+        float: left;
+        margin: 0 0 remCalc(10);
+        max-width: 100%;
+        padding: remCalc(13) 0 0 remCalc(20);
+        text-align: left;
+        width: calc(100% - 375px);
+    }
+    @include breakpoint("large") {
+        width: auto;
+    }
+    > a {
+        @include clearfix;
+        color: $storeName-color;
+        display: inline-block;
+        position: relative;
+        text-decoration: none;
+        width: 100%;
+        z-index: zIndex("low");
+        // scss-lint:disable NestingDepth
+        @include breakpoint("medium") {
+            background: none;
+            border-bottom: 0;
+            display: inline;
+            padding: 0;
+        }
+        &:hover {
+            color: color("link", "hover");
+        }
+        &:active {
+            color: color("link", "active");
+        }
+    }
+}
+.header-logo--left {
+    text-align: left;
+
+    @include breakpoint("medium") {
+        margin-left: remCalc(40px);
+    }
+}
+
+.header-logo--right {
+    text-align: right;
+
+    @include breakpoint("medium") {
+        margin-right: remCalc(40px);
+    }
+}
+
+.header-logo-text {
+    display: block;
+    font-family: $fontFamily-hero;
+    font-size: $fontSize-logo-small;   // 1
+    font-weight: stencilFontWeight("logo-font");
+    letter-spacing: remCalc(5px);
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    padding: remCalc(3px) 0;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    @include breakpoint("small") {
+        font-size: $fontSize-logo-medium;
+        letter-spacing: remCalc(9px);
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+
+    @include breakpoint("medium") {
+        display: inline;
+        font-size: $fontSize-logo-large;
+        margin-left: 0;
+        margin-right: -(remCalc(9px)); // 3
+        max-width: none;
+        overflow: auto;
+        white-space: normal;
+
+        .header.fixed & {
+            font-size: fontSize("larger");
+        }
+    }
+}
+
+.header-logo-image {
+    max-height: remCalc($header-height) - $header-logo-marginVertical * 2;
+
+    @include breakpoint("medium") {
+        max-height: none;
+    }
+}
+
+//
+// Mobile Menu Toggle
+//
+// 1. Animate lines from 'x' to hamburger
+// -----------------------------------------------------------------------------
+
+.mobileMenu-toggle {
+    @include square($header-toggle-width);
+    display: table-cell;
+    font-size: 0;
+    left: 0;
+    overflow: hidden;
+    padding: 0 remCalc(18);
+    position: relative;
+    z-index: zIndex("high");
+    @include breakpoint("medium") {
+        display: none;
+    }
+    .mobileMenu-toggleIcon,
+    .mobileMenu-toggleIcon::before,
+    .mobileMenu-toggleIcon::after {
+        background: $header-font-color;
+        content: "";
+        display: block;
+        height: 2px;
+        position: absolute;
+        transform: rotate(0deg);
+        transition: transform 100ms ease-in, top 100ms ease-in 150ms, bottom 100ms ease-in 150ms; // 1
+        width: remCalc(20);
+    }
+    .mobileMenu-toggleIcon {
+        top: 30px;
+        transition: background-color 10ms ease-in 100ms;
+    }
+    .mobileMenu-toggleIcon::before {
+        top: -0.5rem;
+    }
+    .mobileMenu-toggleIcon::after {
+        bottom: -0.5rem;
+    }
+    &.is-open .mobileMenu-toggleIcon {
+        background-color: transparent;
+        transition-delay: 100ms;
+
+        // scss-lint:disable NestingDepth
+        &::before,
+        &::after {
+            background-color: $header-font-color;
+            bottom: auto;
+            top: auto;
+            transition: transform 100ms ease-in 150ms, top 100ms ease-in, bottom 100ms ease-in; // Animate lines from hamburger to 'x'
+        }
+
+        &::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        &::after {
+            bottom: 0;
+            transform: rotate(-45deg);
+        }
+
+    }
+}
+.mobile-cart {
+    display: table-cell;
+    height: remCalc(60);
+    text-align: center;
+    vertical-align: middle;
+    width: remCalc(60);
+    a {
+        background: url('../img/cartImg.png') center center no-repeat;
+        background-size: auto 100%;
+        display: block;
+        height: remCalc(30);
+        .countPill {
+            background: none;
+            margin-top: remCalc(4);
+        }
+    }
+    @include breakpoint("medium") {
+        display: none;
+    }
+}
+.topmenu-phone {
+    display: none;
+    @include breakpoint("medium") {
+        display: block;
+        float: right;
+    }
+    .topmenu {
+        margin: 0 0 remCalc(13);
+        ul {
+            list-style: none;
+            margin: 0;
+        }
+        li {
+            color: #333;
+            display: inline-block;
+            font-size: 1rem;
+            line-height: 1rem;
+            margin: 0 remCalc(2);
+        }
+        a {
+            font-size: 1rem;
+            line-height: 1rem;
+        }
+        .ulFirst {
+            background: linear-gradient(to bottom,#ffffff 0%, #e1e3ef 100%);
+            border: 1px solid #ccc;
+            float: right;
+            padding: 0 remCalc(10);
+            .cartimg {
+                background: url('../img/cartImg.png') 0 8px no-repeat;
+                padding: remCalc(13) 0 remCalc(13) remCalc(29);
+            }
+        }
+        .ulsecondlast {
+            a {
+                color: #aa7038;
+                font-weight: bold;
+            }
+        }
+        .ulsecond {
+            float: right;
+            padding: remCalc(12) remCalc(3) 0;
+            text-align: right;
+            li {
+                border-left: 1px solid #000;
+                margin: 0;
+                &:first-child {
+                    border: 0;
+                    a {
+                        padding: 0 remCalc(8);
+                    }
+                }
+            }
+            a {
+                padding: 0 remCalc(10);
+            }
+            &:after {
+                clear: both;
+                content: '';
+                display: block;
+            }
+        }
+        &:after {
+            clear: both;
+            content: '';
+            display: block;
+        }
+    }
+    .phoneIcon {
+        font-size: remCalc(22);
+        line-height: remCalc(22);
+        text-align: right;
+        span {
+            color: #fff;
+            padding-right: remCalc(5);
+        }
+        a {
+            color: #555;
+            line-height: remCalc(26);
+        }
+    }
+    &:after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+}

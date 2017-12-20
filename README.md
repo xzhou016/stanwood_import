@@ -1,50 +1,185 @@
-# Mogul
+# Cornerstone
+[![Build Status](https://travis-ci.org/bigcommerce/cornerstone.svg?branch=master)](https://travis-ci.org/bigcommerce/cornerstone)
 
-Mogul is a fresh and versatile theme for growing brands. Its persistent left hand navigation and extensible subcategory menus elegantly support large catalogs, while its clean design and merchandisable homepage sections make it a great choice for a wide variety of product types and industries.
+Stencil's Cornerstone theme is the building block for BigCommerce theme developers to get started quickly developing premium quality themes on the BigCommerce platform.
 
-Built for BigCommerce's [Stencil](https://stencil.bigcommerce.com) platform. Designed and developed by [Pixel Union](https://www.pixelunion.net).
+### Stencil Utils
+[Stencil-utils](https://github.com/bigcommerce/stencil-utils) is our supporting library for our events and remote interactions.
 
-> PLEASE NOTE:
->
-> Pixel Union cannot provide support for themes that have been downloaded and customized.
->
-> We cannot be held liable for any defects or bugs that arise due to customization by a third party. Please make alterations at your own risk.
->
-> Also, please note that while we make a theme’s source code available to those who have purchased it, we retain the rights to all theme designs. You are not permitted to upload a derived theme to any theme marketplace (whether BigCommerce’s or third-party), nor sell it in any form whatsoever. By downloading and/or altering a Pixel Union theme, you continue to be bound to our Terms & Conditions.
+## JS API
+When writing theme JavaScript (JS) there is an API in place for running JS on a per page basis. To properly write JS for your theme, the following page types are available to you:
 
-## Theme documentation
+* "pages/account/addresses"
+* "pages/account/add-address"
+* "pages/account/add-return"
+* "pages/account/add-wishlist"
+* "pages/account/recent-items"
+* "pages/account/download-item"
+* "pages/account/edit"
+* "pages/account/return-saved"
+* "pages/account/returns"
+* "pages/auth/login"
+* "pages/auth/account-created"
+* "pages/auth/create-account"
+* "pages/auth/new-password"
+* "pages/blog"
+* "pages/blog-post"
+* "pages/brand"
+* "pages/brands"
+* "pages/cart"
+* "pages/category"
+* "pages/compare"
+* "pages/errors"
+* "pages/gift-certificate/purchase"
+* "pages/gift-certificate/balance"
+* "pages/gift-certificate/redeem"
+* "global"
+* "pages/home"
+* "pages/order-complete"
+* "pages/page"
+* "pages/product"
+* "pages/search"
+* "pages/sitemap"
+* "pages/subscribed"
+* "page/account/wishlist-details"
+* "pages/account/wishlists"
 
-Pixel Union's Settings documentation for this theme can be found [here](http://support.pixelunion.net/article/410-mogul-theme-manual).
+These page types will correspond to the pages within your theme. Each one of these page types map to an ES6 module that extends the base `PageManager` abstract class.
 
-This theme comes with four design presets:
-[Classic](http://mogul-classic-demo.mybigcommerce.com/),
-[Dark](http://mogul-dark-demo.mybigcommerce.com/),
-[Clean](http://mogul-clean-demo.mybigcommerce.com/),
-[Warm](http://mogul-warm-demo.mybigcommerce.com/).
+```javascript
+    export default class Auth extends PageManager {
+        constructor() {
+            // Set up code goes here; attach to internals and use internals as you would 'this'
+        }
+    }
+```
 
-## Local development
+Within `PageManager` you will see methods that are available from all classes, but there are three really important methods. The following methods have the signature `func (callback)` and the callback takes `callback(err)` if there is an error.
 
-### Prerequisites
+#### before(callback)
+When this method is implemented in your class, the code contained therein will be executed after the constructor but before the `loaded()` method. This provides a shim for your code before your main implementation logic runs.
 
-Please ensure you have the following installed:
+```javascript
+    export default class Auth extends PageManager {
+        constructor() {
+            // Set up code goes here
+        }
+        before(callback) {
+            // Code that should be run before any other code in this class
 
-- [Node.js](https://nodejs.org) _version 5 or higher recommended_, with `npm` version 3 or higher
-- `npm` _version 3 or higher_
-- The Stencil CLI tools ([installation guide](https://stencil.bigcommerce.com/docs/installing-stencil-cli-1))
-- [NVM](https://github.com/creationix/nvm) or similar (optional)
+            // Callback must be called to move on to the next method
+            callback();
+        }
+    }
+```
 
-### SSH keys
+#### loaded(callback)
+This method will be called when the constructor has run and `before()` has been executed. Main implementation code should live in the loaded method.
 
-To fetch theme dependencies, ensure that you have an ssh key configured and for both BitBucket and Github:
+```javascript
+    export default class Auth extends PageManager {
+        constructor() {
+            // Set up code goes here
+        }
+        loaded(callback) {
+            // Main implementation logic here
 
-- [Github SSH key instructions](https://help.github.com/articles/connecting-to-github-with-ssh/)
-- [BitBucket SSH key instructions](https://confluence.atlassian.com/bitbucket/set-up-ssh-for-git-728138079.html)
+            // Callback must be called to move on to the next method
+            callback();
+        }
+    }
+```
 
-### Running the theme
+#### after(callback)
+This method is for any cleanup that may need to happen and it will be executed after `before()` and `loaded()`.
 
-Navigate to your theme's root folder and run `npm install` to install all theme dependencies.
+```javascript
+    export default class Auth extends PageManager {
+        constructor() {
+            // Set up code goes here
+        }
+        after(callback) {
+            // Main implementation logic here
 
-You can now use the `stencil` command to run and build the theme. Please reference BigCommerce's documentation for using `stencil`:
+            // Callback must be called to move on to the next method
+            callback();
+        }
+    }
+```
 
- - [Preparing an API token](https://stencil.bigcommerce.com/docs/preparing-your-store-tokens)
- - [Launching the Stencil environment](https://stencil.bigcommerce.com/docs/launching-stencil)
+### JS Template Context Injection
+Occasionally you may need to use dynamic data from the template context within your client-side theme application code.
+
+Two helpers are provided to help achieve this.
+
+The inject helper allows you to compose a JSON object with a subset of the template context to be sent to the browser.
+
+```
+{{inject "stringBasedKey" contextValue}}
+```
+
+To retrieve the parsable JSON object, just call `{{jsContext}}` after all of the `{{@inject}}` calls.
+
+For example, to setup the product name in your client-side app, you can do the following if you're in the context of a product:
+
+```html
+{{inject "myProductName" product.title}}
+
+<script>
+// Note the lack of quotes around the jsContext handlebars helper, it becomes a string automatically.
+var jsContext = JSON.parse({{jsContext}}); // jsContext would output "{\"myProductName\": \"Sample Product\"}" which can feed directly into your JavaScript
+
+console.log(jsContext.myProductName); // Will output: Sample Product
+</script>
+```
+
+You can compose your JSON object across multiple pages to create a different set of client-side data depending on the currently loaded template context.
+
+The stencil theme makes the jsContext available on both the active page scoped and global PageManager objects as `this.context`.
+
+
+## Static assets
+Some static assets in the Stencil theme are handled with Grunt if required. This
+means you have some dependencies on grunt and npm. To get started:
+
+First make sure you have Grunt installed globally on your machine:
+
+```
+npm install -g grunt-cli
+```
+
+and run:
+
+```
+npm install
+```
+
+### Icons
+Icons are delivered via a single SVG sprite, which is embedded on the page in
+`templates/layout/base.html`. It is generated via a grunt task `grunt svgstore`.
+
+The task takes individual SVG files for each icon in `assets/icons` and bundles
+them together, to be inlined on the top of the theme, inside a handlebars partial.
+Each icon can then be called in a similar way to an inline image via:
+
+```
+<svg><use xlink:href="#icon-svgFileName" /></svg>
+```
+
+The ID of the SVG icon you are calling is based on the filename of the icon you want,
+with `icon-` prepended. e.g. `xlink:href="#icon-facebook"`.
+
+Simply add your new icon SVG file to the icons folder, and run `grunt svgstore`,
+or just `grunt`.
+
+#### License
+
+(The MIT License)
+Copyright (C) 2015-2017 BigCommerce Inc.
+All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

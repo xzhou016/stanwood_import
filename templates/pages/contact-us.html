@@ -1,29 +1,46 @@
 {{#partial "page"}}
-
-<article class="page-container page-narrow">
-
-  {{> components/breadcrumbs}}
-
-  <div class="page-header">
-    <h1 class="page-title">{{page.title}}</h1>
-  </div>
-
-  <div class="page-content page-form rte">
-    <div class="page-message-area">
-      {{#if forms.contact.success}}
-        {{> core/alerts/alert-success message=(lang 'core.contact.successful' shopPath=urls.home)}}
-      {{else}}
-        <p>{{{page.content}}}</p>
-      {{/if}}
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+            {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+            <main class="page">
+                <h1 class="page-heading">{{page.title}}</h1>
+                {{#if page.sub_pages}}
+                    <nav class="navBar">
+                        <ul class="navBar-section">
+                            {{#each page.sub_pages}}
+                                <li class="navBar-item"><a class="navBar-action" href="{{url}}">{{title}}</a></li>
+                            {{/each}}
+                        </ul>
+                    </nav>
+                {{/if}}
+                <div class="page-content">
+                    {{#if forms.contact.success}}
+                        {{{lang 'forms.contact_us.successful' shopPath=urls.home}}}
+                    {{else}}
+                        <p>{{{page.content}}}</p>
+                        {{> components/page/contact-us-form}}
+                    {{/if}}
+                    <div class="ContactUsLowerPanel">
+                        <h1 class="page-heading">Other Contact Info</h1>
+                        <table cellspacing="0" cellpadding="0" border="0" id="otherContact">
+                            <tbody>
+                                <tr>
+                                    <th><strong>Phone</strong></th>
+                                    <th><strong>Mailing Address</strong></th>
+                                </tr>
+                                <tr>
+                                    <td class="lefttd">(888) 670-5570</td>
+                                    <td><strong>Stanwood Imports</strong><br>20555 Devonshire St, # 289<br>Chatsworth, CA US 91311</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>​
+                </div>
+            </main>
+        </div>
     </div>
-
-    {{#unless forms.contact.success}}
-      {{> core/forms/form-contact-us}}
-    {{/unless}}
-  </div>
-
-</article>
-
 {{/partial}}
-
 {{> layout/base}}

@@ -1,106 +1,107 @@
-<section class="cart-totals">
-  <div class="cart-subtotals">
-    <div class="cart-subtotal-line">
-      <span class="cart-subtotal-label">{{lang 'cart.subtotal'}}</span>
-      <span class="cart-subtotal-content">{{cart.sub_total.formatted}}</span>
-    </div>
-
-    <div class="cart-subtotal-line">
-      <span class="cart-subtotal-label">{{lang 'cart.shipping_calculator.title'}}</span>
-      {{#if cart.shipping_handling.shipping_cost}}
-        <span class="cart-subtotal-content">
-          {{cart.shipping_handling.shipping_cost.formatted}}
-        </span>
-        <span class="cart-shipping-recalculate">
-          <a
-            class="cart-shipping-calculator-toggle"
-            data-shipping-calculator-toggle
-          >
-            {{lang 'cart.shipping_calculator.recalculate'}}
-          </a>
-        </span>
-      {{else}}
-        <span class="cart-subtotal-content">
-          {{#if cart.shipping_handling.shipping_cost "===" 0}}
-            {{#if cart.shipping_handling.provider}}
-              {{cart.shipping_handling.provider.description}}
-            {{/if}}
-          {{else}}
-            <a
-              class="cart-shipping-calculator-toggle"
-              data-shipping-calculator-toggle
-            >
-              {{lang 'cart.shipping_calculator.estimate_shipping'}}
-            </a>
-          {{/if}}
-        </span>
-      {{/if}}
-    </div>
-
-    {{> components/cart/shipping-calculator cart.shipping_handling}}
-
-    {{#each cart.taxes}}
-      <div class="cart-subtotal-line">
-        <span class="cart-subtotal-label">{{name}}</span>
-        <span class="cart-subtotal-content">
-          {{cost.formatted}}
-        </span>
-      </div>
-    {{/each}}
-
-    {{#if cart.coupons}}
-      {{#each cart.coupons}} {{! only one will come from the platform but it's in array format}}
-        <div class="cart-subtotal-line">
-          <span class="cart-subtotal-label">
-            {{lang 'cart.coupon_codes.label' code=code}}
-            <a href="{{remove_url}}">{{lang 'cart.coupon_codes.remove'}}</a>
-          </span>
-          <span class="cart-subtotal-content">{{discount.formatted}}</span>
+<ul class="cart-totals">
+    <li class="cart-total">
+        <div class="cart-total-label">
+            <strong>{{lang 'cart.checkout.subtotal'}}:</strong>
         </div>
-      {{/each}}
+        <div class="cart-total-value">
+            {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                <span>{{cart.sub_total.formatted}}</span>
+            {{else}}
+                {{> components/common/login-for-pricing}}
+            {{/or}}
+        </div>
+    </li>
+    {{#if cart.gift_wrapping_cost.amount}}
+        <li class="cart-total">
+            <div class="cart-total-label">
+                <strong>{{lang 'cart.checkout.gift_wrapping'}}:</strong>
+            </div>
+            <div class="cart-total-value">
+                <span>{{cart.gift_wrapping_cost.formatted}}</span>
+            </div>
+        </li>
     {{/if}}
-
-    {{#each cart.gift_certificates}}
-      <div class="cart-subtotal-line">
-        <span class="cart-subtotal-label">
-          {{lang 'cart.gift_certificates.label' code=code}}
-          {{remaining.formatted}}
-          <a href="{{remove_url}}">{{lang 'cart.gift_certificates.remove'}}</a>
-        </span>
-        <span class="cart-subtotal-content">{{used.formatted}}</span>
-      </div>
+    {{#if cart.shipping_handling.show_estimator}}
+        <li class="cart-total">
+            <div class="cart-total-label">
+                <strong>{{lang 'cart.checkout.shipping'}}:</strong>
+            </div>
+            {{> components/cart/shipping-estimator cart.shipping_handling}}
+        </li>
+    {{/if}}
+    {{#each cart.taxes}}
+        <li class="cart-total">
+            <div class="cart-total-label">
+                <strong>{{name}}:</strong>
+            </div>
+            <div class="cart-total-value">
+                <span>{{cost.formatted}}</span>
+            </div>
+        </li>
     {{/each}}
-
-    {{#if cart.discount}}
-      <div class="cart-subtotal-line">
-        <span class="cart-subtotal-label">{{lang 'cart.discount'}}</span>
-        <span class="cart-subtotal-content">{{cart.discount.formatted}}</span>
-      </div>
+    {{#if cart.discount }}
+        <li class="cart-total">
+            <div class="cart-total-label">
+                <strong>{{lang 'cart.discount'}}:</strong>
+            </div>
+            <div class="cart-total-value">
+                {{cart.discount.formatted}}
+            </div>
+        </li>
     {{/if}}
-  </div>
-
-  <div data-coupon-errors></div>
-  <div data-gift-certificate-errors></div>
-
-  {{> components/cart/coupon-codes}}
-  {{> components/cart/gift-certificates}}
-
-  <div class="cart-grand-total">
-    <span class="cart-total-label">{{lang 'cart.grand_total'}}</span>
-    <span class="cart-subtotal-content">
-      {{cart.grand_total.formatted}}
-    </span>
-  </div>
-
-  <div class="cart-actions-row">
-    <a class="button button-primary" href="{{urls.checkout.single_address}}">{{lang 'cart.checkout'}}</a>
-  </div>
-
-  {{#if cart.additional_checkout_buttons.length}}
-    <div class="additional-checkout-buttons">
-      {{#each cart.additional_checkout_buttons}}
-        {{{this}}}
-      {{/each}}
-    </div>
-  {{/if}}
-</section>
+    {{#if cart.coupons}}
+        {{#each cart.coupons}}
+            <li class="cart-total">
+                <div class="cart-total-label">
+                    <strong>{{lang 'cart.coupons.code_label' code=code}}</strong>
+                    <div>
+                        <a href="{{remove_url}}">{{lang 'cart.coupons.remove'}}</a>
+                    </div>
+                </div>
+                <div class="cart-total-value">
+                    <span>{{discount.formatted}}</span>
+                </div>
+            </li>
+        {{/each}}
+    {{else}}
+        <li class="cart-total">
+            <div class="cart-total-label">
+                <strong>{{lang 'cart.coupon_code'}}:</strong>
+            </div>
+            {{> components/cart/coupon-input}}
+        </li>
+    {{/if}}
+    {{#if settings.gift_certificates_enabled}}
+        {{#each cart.gift_certificates}}
+            <li class="cart-total">
+                <div class="cart-total-label">
+                    <strong>{{lang 'cart.gift_certificates.code_label' code=code}}</strong>
+                    <span>
+                        {{remaining.formatted}} | <a href="{{remove_url}}">{{lang 'cart.gift_certificates.remove'}}</a>
+                    </span>
+                </div>
+                <div class="cart-total-value">
+                    {{used.formatted}}
+                </div>
+            </li>
+        {{/each}}
+        <li class="cart-total">
+            <div class="cart-total-label">
+                <strong>{{lang 'cart.gift_certificates.gift_certificate'}}:</strong>
+            </div>
+            {{> components/cart/gift-certificate-input}}
+        </li>
+    {{/if}}
+    <li class="cart-total">
+        <div class="cart-total-label">
+            <strong>{{lang 'cart.checkout.grand_total'}}:</strong>
+        </div>
+        <div class="cart-total-value cart-total-grandTotal">
+            {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                <span>{{cart.grand_total.formatted}}</span>
+            {{else}}
+                {{> components/common/login-for-pricing}}
+            {{/or}}
+        </div>
+    </li>
+</ul>

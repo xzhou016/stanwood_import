@@ -1,0 +1,73 @@
+// =============================================================================
+// PRODUCT VIEW (CSS)
+// =============================================================================
+
+// Product view layout
+// -----------------------------------------------------------------------------
+.productView {
+    margin-left: -(spacing("base"));
+    margin-right: -(spacing("base"));
+    .modal & {
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+}
+.productView--quickView {
+    .socialLinks-item--print {
+        display: none;
+    }
+}
+.productView-images {
+    @include grid-column(12);
+    padding-left: spacing("base");
+    padding-right: spacing("base");
+    @include breakpoint("medium") {
+        width: grid-calc(6, $total-columns);
+    }
+}
+.productView-details {
+    @include grid-column(12);
+    padding-left: spacing("base");
+    padding-right: spacing("base");
+    @include breakpoint("medium") {
+        clear: right;
+        float: right;
+        width: grid-calc(6, $total-columns);
+    }
+}
+.productView-description {
+    @include grid-column(12);
+    padding-left: spacing("base");
+    padding-right: spacing("base");
+    .productView-title {
+        border-bottom: container("border");
+        margin-bottom: spacing("base");
+        padding-left: spacing("base");
+        padding-right: spacing("base");
+    }
+    .productView-description {
+        @include breakpoint("medium") {
+            clear: both;
+            float: none;
+            width: 100%;
+        }
+    }
+}
+.productView-title {
+    font-size: remCalc(16);
+    margin: 0 0 remCalc(20);
+    padding: 0;
+}
+.productView-brand {
+    margin: 0;
+    padding: 0;
+}
+.productView-rating {
+    margin: 0 0 remCalc(20);
+}
+.productView-info {
+    border-top: 1px solid #f0efee;
+}
+.productView-info-name {
+    margin-bottom: 0;
+}

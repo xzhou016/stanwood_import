@@ -1,49 +1,45 @@
-import Listing from './listing/Listing';
-import FacetedSearch from './components/FacetedSearch';
+import { hooks } from '@bigcommerce/stencil-utils';
+import CatalogPage from './catalog';
+import $ from 'jquery';
+import FacetedSearch from './common/faceted-search';
 
-export default class Category {
-  constructor(context) {
-    this.context = context;
-
-    this.listing = new Listing('category', {
-      category: { products: { limit: this.context.listingProductCount } },
-    });
-
-    this._init();
-  }
-
-  _init() {
-    if ($('[data-faceted-search]').length) {
-      this._initializeFacetedSearch();
+export default class Category extends CatalogPage {
+    loaded() {
+        if ($('#facetedSearch').length > 0) {
+            this.initFacetedSearch();
+        } else {
+            this.onSortBySubmit = this.onSortBySubmit.bind(this);
+            hooks.on('sortBy-submitted', this.onSortBySubmit);
+        }
     }
-  }
 
-  _initializeFacetedSearch() {
-    const facetedSearchOptions = {
-      config: {
-        category: {
-          products: {
-            limit: this.context.productsPerPage,
-          }
-        },
-      },
-      template: {
-        productListing: 'category/products',
-        sidebar: 'category/filters',
-        selected: 'category/selected'
-      },
-      scope: {
-        productListing: '[data-category-products]',
-        sidebar: '[data-category-sidebar]',
-        facetSelected: '[data-faceted-search-selected]'
-      },
-      showMore: 'category/show-more',
-    };
+    initFacetedSearch() {
+        const $productListingContainer = $('#product-listing-container');
+        const $facetedSearchContainer = $('#faceted-search-container');
+        const productsPerPage = this.context.categoryProductsPerPage;
+        const requestOptions = {
+            config: {
+                category: {
+                    shop_by_price: true,
+                    products: {
+                        limit: productsPerPage,
+                    },
+                },
+            },
+            template: {
+                productListing: 'category/product-listing',
+                sidebar: 'category/sidebar',
+            },
+            showMore: 'category/show-more',
+        };
 
-    new FacetedSearch(facetedSearchOptions);
-  }
+        this.facetedSearch = new FacetedSearch(requestOptions, (content) => {
+            $productListingContainer.html(content.productListing);
+            $facetedSearchContainer.html(content.sidebar);
 
-  unload() {
-    //remove all event handlers
-  }
+            $('html, body').animate({
+                scrollTop: 0,
+            }, 100);
+        });
+    }
 }

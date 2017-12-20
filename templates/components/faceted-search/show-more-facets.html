@@ -1,14 +1,22 @@
-<ul class="nav-list faceted-search-option-columns" data-additional-facets-list>
-  {{#each facets}}
-    {{#if facet '===' ../all_facets}}
-      {{#each items}}
-        <li class="nav-list-item sidebar-filter-item filter-item" data-facet-item>
-          <a href="{{url}}"
-          class="nav-ist-action {{#if selected}}is-active{{/if}} sidebar-filter-item-link filter-item-link"
-          rel="nofollow"
-          data-id="{{ id }}"
-          data-faceted-search-facet>{{title}} ({{count}})</a></li>
-      {{/each}}
-    {{/if}}
-  {{/each}}
-</ul>
+<div class="modal-body">
+    <h1 class="facet-quick-heading">
+        {{all_facets}}
+    </h1>
+    <div class="form-field" id="facetedSearch-filterItems">
+        <input class="form-input" type="search" placeholder={{lang 'forms.search.search'}}>
+    </div>
+    <ul class="navList facetedSearch-optionColumns">
+        {{#each facets}}
+            {{#if facet '===' ../all_facets}}
+                {{#each items}}
+                    <li class="navList-item"><a
+                        href="{{url}}"
+                        class="navList-action {{#if selected }} is-active {{/if}}"
+                        rel="nofollow"
+                        data-id="{{ id }}"
+                        data-faceted-search-facet>{{title}} ({{count}})</a></li>
+                {{/each}}
+            {{/if}}
+        {{/each}}
+    </ul>
+</div>

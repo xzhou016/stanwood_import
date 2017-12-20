@@ -1,0 +1,103 @@
+// =============================================================================
+// PRODUCT GRID (CSS)
+// =============================================================================
+
+
+// Product grid view
+// -----------------------------------------------------------------------------
+//
+// 1. Re-set the font-size, as we're reducing it to 0 in the .products class.
+//
+// -----------------------------------------------------------------------------
+
+.productGrid {
+    @include u-listBullets("none");
+    margin: 0 0 remCalc(20);
+    font-size: 0; // 1
+    @include breakpoint("xsmall") {
+        margin: 0 remCalc(-5);
+    }
+    .product {
+        border: 1px solid #ddd;
+        border-radius: remCalc(5);
+        margin: remCalc(15) 0 0;
+        padding: remCalc(13) remCalc(15);
+        @include breakpoint("xsmall") {
+            float: left;
+            margin: remCalc(10) remCalc(5) 0;
+            width: calc(50% - 10px);
+        }
+        @include breakpoint("medium") {
+            margin: remCalc(15) remCalc(5) 0;
+            width: calc(33.333% - 10px);
+        }
+    }
+}
+
+//
+// Product Grid with masonry layout
+//
+// Purpose: Display products in a masonry grid, with a display inline-block for
+// older browsers that don't support css multicolumn
+//
+// 1. Some older browser support. This class comes from Modernizr
+// -----------------------------------------------------------------------------
+
+.productMasonry {
+    column-count: 2;
+    column-fill: auto;
+    column-gap: remCalc(20px);
+    margin: 0 0 spacing("single");
+    overflow: hidden;
+
+    @include breakpoint("small") {
+        column-count: 3;
+    }
+
+    @include breakpoint("medium") {
+        column-count: 4;
+    }
+
+    .product {
+        break-inside: avoid;
+        display: block;
+        margin-bottom: spacing("double");
+        padding: 0;
+        width: 100%;
+    }
+
+    .card {
+        margin: 0;
+    }
+
+}
+
+
+// Product grid view variation
+// -----------------------------------------------------------------------------
+
+.productGrid--maxCol6 {
+    .no-csscolumns & {
+        // scss-lint:disable SelectorDepth, NestingDepth
+        .product {
+            @include breakpoint("medium") {
+                width: grid-calc(2, $total-columns);
+            }
+        }
+    }
+    .csscolumns & {
+        @include breakpoint("medium") {
+            column-count: 6;
+        }
+    }
+}
+.productGrid--maxCol3 {
+    .no-csscolumns & {
+        // scss-lint:disable SelectorDepth, NestingDepth
+        .product {
+            @include breakpoint("medium") {
+                width: grid-calc(4, $total-columns);
+            }
+        }
+    }
+}

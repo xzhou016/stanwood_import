@@ -1,0 +1,196 @@
+// =============================================================================
+// BODY (CSS)
+//
+// 1. Header is fixed on small screens, use the content body to create the whitespace
+//    between it and the header on all situations. If you change the spacing here,
+//    please update .heroCarousel too.
+//
+// =============================================================================
+
+.body {
+    z-index: 2;
+}
+.page {
+}
+.page-content--centered {
+    @include breakpoint("medium") {
+        @include grid-column(
+            $columns: 8,
+            $center: true
+        );
+    }
+}
+.page-content--textCenter {
+    text-align: center;
+}
+.page-sidebar {
+    @include breakpoint("medium") {
+        float: left;
+        margin: 0 0 0 remCalc(20);
+        width: remCalc(218);
+    }
+    + .page-sidebar {
+        display: none;
+        float: right;
+        margin: 0 remCalc(20) 0 0;
+        @include breakpoint("medium") {
+            display: block;
+        }
+        .recent-posts {
+            h2 {
+                color: #535353;
+                padding: 0 0 remCalc(10);
+            }
+            ul {
+                border: 0;
+                list-style: none;
+                margin: 0;
+                li {
+                    height: auto;
+                    line-height: initial;
+                    padding: remCalc(13) 0;
+                    a {
+                        display: block;
+                        font-weight: bold;
+                        padding: 0;
+                        &:hover {
+                            color: #202020;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+        + .main-content {
+            @include breakpoint("medium") {
+                float: left;
+                width: calc(100% - 476px);
+            }
+        }
+    }
+    + .main-content {
+        padding: 0 remCalc(20);
+        @include breakpoint("medium") {
+            float: left;
+            width: calc(100% - 238px);
+        }
+    }
+    .side-categories {
+        background: url('../img/leftnav-bg.png') top left no-repeat;
+        background-size: 100% 100%;
+        display: none;
+        @include breakpoint("medium") {
+            display: block;
+        }
+        + div {
+            display: none;
+            @include breakpoint("medium") {
+                display: block;
+            }
+        }
+    }
+    h4 {
+        background: #91c73e;
+        border: 1px solid #ccc;
+        color: #ffffff;
+        font-family: 'Impact';
+        font-size: remCalc(22);
+        font-weight: normal;
+        height: remCalc(41);
+        letter-spacing: 0;
+        line-height: remCalc(38);
+        padding: 0 remCalc(10);
+        text-transform: uppercase;
+    }
+    ul {
+        border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
+        line-height: initial;
+        list-style: none;
+        li {
+            background: none;
+            border-bottom: 1px solid #dddddd;
+            float: none;
+            height: remCalc(32);
+            line-height: remCalc(32);
+            position: relative;
+            &.has-children {
+                &:hover {
+                    .navPage-subMenu {
+                        display: block;
+                    }
+                }
+            }
+            a {
+                color: #202020;
+                margin: 0;
+                padding: 0 remCalc(10) 0 remCalc(16);
+                position: relative;
+                text-transform: none;
+                &:hover {
+                    color: #ffffff;
+                }
+                .icon {
+                    right: 0;
+                    position: absolute;
+                    top: calc(50% - 10px);
+                }
+            }
+        }
+    }
+    #promo1 {
+        padding-top: remCalc(20);
+    }
+}
+.main {
+    padding: remCalc(20) 0;
+    &.full {
+        background: #ffffff;
+    }
+    &:after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+}
+#introduction {
+    #welcome {
+        //float: left;
+        //margin: 0 remCalc(10) 0 0;
+        //width: calc(100% - 260px);
+        h1 {
+            color: #0b3e48;
+            font-family: 'Impact';
+            font-size: remCalc(22);
+            padding: 0;
+            letter-spacing: 1.3px;
+        }
+        p {
+            margin: 0 0 remCalc(10);
+        }
+    }
+    #video {
+        float: right;
+        margin: 0 0 remCalc(10) remCalc(10);
+        width: remCalc(250);
+    }
+    &:after {
+        clear: both;
+        content: '';
+        display: block;
+    }
+}
+.home-featured {
+    h2 {
+        background: linear-gradient(to bottom, #91c73e 0%,#439b3c 100%);
+        color: #ffffff;
+        font-family: 'Impact';
+        font-size: remCalc(22);
+        font-weight: normal;
+        line-height: normal;
+        letter-spacing: 1.3px;
+        margin: 0;
+        padding: remCalc(11) 0 remCalc(11) remCalc(10);
+        text-align: left;
+    }
+}

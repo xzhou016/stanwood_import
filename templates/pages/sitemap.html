@@ -1,24 +1,37 @@
 {{#partial "page"}}
-
-  <section class="page-container page-narrow">
-
-    {{> components/breadcrumbs}}
-
-    <div class="page-header">
-      <h1 class="page-title">{{lang 'sitemap.heading'}}</h1>
-    </div>
-
-    <div class="sitemap-container">
-      {{#each sitemap}}
-        <div class="sitemap-group">
-          <h2 class="sitemap-title">{{title}}</h2>
-          {{> components/sitemap-group items=body}}
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+            <h1>{{lang 'sitemap.page_title'}}</h1>
+            <ul>
+            {{#each sitemap}}
+                <li>
+                    <h3>{{label}}</h3>
+                    <ul>
+                        {{#each body}}
+                        <li>
+                            <a href="{{url}}">{{label}}</a>
+                            {{#if children}}
+                                <ul>
+                                {{#each children}}
+                                    {{> components/sitemap/links}}
+                                {{/each}}
+                                </ul>
+                            {{/if}}
+                        </li>
+                        {{/each}}
+                        {{#if show_all_link}}
+                        <li>
+                            <a href="{{subsection_url}}">{{lang 'sitemap.show_all_link'}}</a>
+                        </li>
+                        {{/if}}
+                    </ul>
+                </li>
+            {{/each}}
+            </ul>
         </div>
-      {{/each}}
     </div>
-
-  </section>
-
 {{/partial}}
-
 {{> layout/base}}

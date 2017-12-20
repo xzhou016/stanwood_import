@@ -1,27 +1,26 @@
----
-brands: true
----
-
 {{#partial "page"}}
-
-  <div class="content">
-    <article class="page-container subscribed">
-      <h1 class="page-heading">
-        {{#if subscription.error}}
-          {{lang 'common.newsletter.subscribed_heading_error'}}
-        {{else}}
-          {{lang 'common.newsletter.subscribed_heading'}}
-        {{/if}}
-      </h1>
-      <div class="page-content">
-        {{#if subscription.error}}
-          {{> core/alerts/alert-error subscription.error}}
-        {{else}}
-          {{> core/alerts/alert-success (lang 'common.newsletter.subscribed_message')}}
-        {{/if}}
-      </div>
-    </article>
-  </div>
-
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+            <section class="page">
+                <div class="page-content">
+                    <h1 class="page-heading">
+                        {{#if subscription.error}}
+                            {{lang 'newsletter.subscribed_heading_error'}}
+                        {{else}}
+                            {{lang 'newsletter.subscribed_heading'}}
+                        {{/if}}
+                    </h1>
+                    {{#if subscription.error}}
+                        {{> components/common/alert-error subscription.error}}
+                    {{else}}
+                        {{> components/common/alert-success (lang 'newsletter.subscribed_message')}}
+                    {{/if}}
+                </div>
+            </section>
+        </div>
+    </div>
 {{/partial}}
 {{> layout/base}}

@@ -1,0 +1,33 @@
+<nav class="navPages">
+    <div class="navPages-quickSearch">
+        {{> components/common/quick-search}}
+    </div>
+    <ul class="navPages-list{{#if theme_settings.navigation_design '!==' 'simple'}} navPages-list-depth-max{{/if}} mobile-cats">
+        {{#each categories}}
+        <li class="navPages-item{{#if children}} has-children{{/if}}">
+            {{> components/common/navigation-list-alternate}}
+        </li>
+        {{/each}}
+    </ul>
+    <ul class="navPages-list{{#if theme_settings.navigation_design '!==' 'simple'}} navPages-list-depth-max{{/if}}">
+        <li class="navPages-item">
+            <a class="navPages-action" href="{{urls.home}}">Home</a>
+        </li>
+        {{#unless theme_settings.hide_content_navigation}}
+            {{#each pages}}
+                 <li class="navPages-item navPages-item-page">
+                     <a class="navPages-action" href="{{url}}">{{name}}</a>
+                 </li>
+             {{/each}}
+        {{/unless}}
+    </ul>
+    <ul class="navPages-list{{#if theme_settings.navigation_design '!==' 'simple'}} navPages-list-depth-max{{/if}} mobile-account">
+        {{#if customer}}
+        <li class="navPages-item"><a class="navPages-action" href="{{urls.account.index}}" title="My Account">My Account</a></li>
+        <li class="navPages-item"><a class="navPages-action" href="{{urls.auth.logout}}" title="Logout">Logout</a></li>
+        {{else}}
+        <li class="navPages-item"><a class="navPages-action" href="{{urls.auth.login}}" title="Login">Login</a></li>
+        <li class="navPages-item"><a class="navPages-action" href="{{urls.auth.create_account}}" title="Create Account">Create Account</a></li>
+        {{/if}}
+    </ul>
+</nav>

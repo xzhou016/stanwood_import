@@ -1,90 +1,97 @@
-// Load jQuery globally, and plugins
+__webpack_public_path__ = window.__webpack_public_path__; // eslint-disable-line
+
 import 'babel-polyfill';
-import './theme/global/jquery';
-import 'jquery-trend';
-import 'jquery-revealer';
+import $ from 'jquery';
+import Global from './theme/global';
 
-import stencilUtils from '@bigcommerce/stencil-utils';
-import async from 'async';
-import Account from './theme/core/Account';
-import Auth from './theme/Auth';
-import Blog from './theme/Blog';
-import Brand from './theme/Brand';
-import Brands from './theme/Brands';
-import Cart from './theme/Cart';
-import Category from './theme/Category';
-import Compare from './theme/Compare';
-import Errors from './theme/Errors';
-import GiftCertificate from './theme/GiftCertificate';
-import Global from './theme/Global';
-import Home from './theme/Home';
-import OrderComplete from './theme/OrderComplete';
-import Page from './theme/Page';
-import Product from './theme/Product';
-import Search from './theme/Search';
-import Sitemap from './theme/Sitemap';
-import Subscribe from './theme/Subscribe';
-import Unsubscribe from './theme/Subscribe';
-import Wishlist from './theme/Wishlist';
-
-const PageClasses = {
-  'global': Global,
-  'pages/account/orders/all': Account,
-  'pages/account/orders/details': Account,
-  'pages/account/addresses': Account,
-  'pages/account/add-address': Account,
-  'pages/account/add-return': Account,
-  'pages/account/add-wishlist': Wishlist,
-  'pages/account/recent-items': Account,
-  'pages/account/download-item': Account,
-  'pages/account/edit': Account,
-  'pages/account/inbox': Account,
-  'pages/account/return-saved': Account,
-  'pages/account/returns': Account,
-  'pages/auth/login': Auth,
-  'pages/auth/account-created': Auth,
-  'pages/auth/create-account': Auth,
-  'pages/auth/new-password': Auth,
-  'pages/blog': Blog,
-  'pages/blog-post': Blog,
-  'pages/brand': Brand,
-  'pages/brands': Brands,
-  'pages/cart': Cart,
-  'pages/category': Category,
-  'pages/compare': Compare,
-  'pages/errors': Errors,
-  'pages/gift-certificate/purchase': GiftCertificate,
-  'pages/gift-certificate/balance': GiftCertificate,
-  'pages/gift-certificate/redeem': GiftCertificate,
-  'pages/home': Home,
-  'pages/order-complete': OrderComplete,
-  'pages/page': Page,
-  'pages/product': Product,
-  'pages/search': Search,
-  'pages/sitemap': Sitemap,
-  'pages/subscribe': Subscribe,
-  'pages/unsubscribe': Subscribe,
-  'pages/account/wishlist-details': Wishlist,
-  'pages/account/wishlists': Wishlist,
+const getAccount = () => import('./theme/account');
+const getLogin = () => import('./theme/auth');
+const pageClasses = {
+    'pages/account/orders/all': getAccount,
+    'pages/account/orders/details': getAccount,
+    'pages/account/addresses': getAccount,
+    'pages/account/add-address': getAccount,
+    'pages/account/add-return': getAccount,
+    'pages/account/add-wishlist': () => import('./theme/wishlist'),
+    'pages/account/recent-items': getAccount,
+    'pages/account/download-item': getAccount,
+    'pages/account/edit': getAccount,
+    'pages/account/inbox': getAccount,
+    'pages/account/return-saved': getAccount,
+    'pages/account/returns': getAccount,
+    'pages/auth/login': getLogin,
+    'pages/auth/account-created': getLogin,
+    'pages/auth/create-account': getLogin,
+    'pages/auth/new-password': getLogin,
+    'pages/auth/forgot-password': getLogin,
+    'pages/blog': () => import('./theme/blog'),
+    'pages/blog-post': () => import('./theme/blog'),
+    'pages/brand': () => import('./theme/brand'),
+    'pages/brands': () => import('./theme/brand'),
+    'pages/cart': () => import('./theme/cart'),
+    'pages/category': () => import('./theme/category'),
+    'pages/compare': () => import('./theme/compare'),
+    'pages/contact-us': () => import('./theme/contact-us'),
+    'pages/errors': () => import('./theme/errors'),
+    'pages/errors/404': () => import('./theme/404-error'),
+    'pages/gift-certificate/purchase': () => import('./theme/gift-certificate'),
+    'pages/gift-certificate/balance': () => import('./theme/gift-certificate'),
+    'pages/gift-certificate/redeem': () => import('./theme/gift-certificate'),
+    'pages/home': () => import('./theme/home'),
+    'pages/order-complete': () => import('./theme/order-complete'),
+    'pages/page': () => import('./theme/page'),
+    'pages/product': () => import('./theme/product'),
+    'pages/amp/product-options': () => import('./theme/product'),
+    'pages/search': () => import('./theme/search'),
+    'pages/rss': () => import('./theme/rss'),
+    'pages/sitemap': () => import('./theme/sitemap'),
+    'pages/subscribed': () => import('./theme/subscribe'),
+    'pages/account/wishlist-details': () => import('./theme/wishlist'),
+    'pages/account/wishlists': () => import('./theme/wishlist'),
 };
 
 /**
  * This function gets added to the global window and then called
  * on page load with the current template loaded and JS Context passed in
+ * @todo use page_type instead of template_file (STENCIL-2922)
  * @param templateFile String
- * @param context
+ * @param contextJSON
+ * @returns {*}
  */
+window.stencilBootstrap = function stencilBootstrap(templateFile, contextJSON = null, loadGlobal = true) {
+    const context = JSON.parse(contextJSON || {});
 
-window.stencilBootstrap = function stencilBootstrap(templateFile, context = {}) {
-  const globalClass = PageClasses['global'];
-  const pageClass = PageClasses[templateFile];
+    return {
+        load() {
+            $(async () => {
+                let globalClass;
+                let pageClass;
+                let PageClass;
 
-  context = JSON.parse(context);
-  $(() => {
-    new globalClass(context);
+                // Finds the appropriate class from the pageType.
+                const pageClassImporter = pageClasses[templateFile];
+                if (typeof pageClassImporter === 'function') {
+                    PageClass = (await pageClassImporter()).default;
+                }
 
-    if (pageClass) {
-      new pageClass(context);
-    }
-  });
+                if (loadGlobal) {
+                    globalClass = new Global();
+                    globalClass.context = context;
+                }
+
+                if (PageClass) {
+                    pageClass = new PageClass(context);
+                    pageClass.context = context;
+                }
+
+                if (globalClass) {
+                    globalClass.load();
+                }
+
+                if (pageClass) {
+                    pageClass.load();
+                }
+            });
+        },
+    };
 };

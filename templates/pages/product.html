@@ -1,33 +1,48 @@
 ---
-cart: true
 product:
-  reviews:
-      limit: {{theme_settings.product-reviews-count}}
-  related_products:
-      limit: 4
-  videos: true
+    videos:
+        limit: {{theme_settings.productpage_videos_count}}
+    reviews:
+        limit: {{theme_settings.productpage_reviews_count}}
+    related_products:
+        limit: {{theme_settings.productpage_related_products_count}}
+    similar_by_views:
+        limit: {{theme_settings.productpage_similar_by_views_count}}
 ---
-
 {{#partial "page"}}
-
-  {{> components/breadcrumbs}}
-  <div class="single-product" data-product-container>
-    {{> components/product/images images=product.images}}
-    {{> components/product/details}}
-
-    {{#unless quick_shop}}
-      {{> components/common/share-buttons share_heading=true
-        share_buttons=settings.add_this url=(cdn product.url) title=product.title
-        image=(getImage product.main_image 'full' (cdn theme_settings.default_image))
-      }}
-    {{/unless}}
-
-    {{> components/product/tabs}}
-    {{> components/product/products-related products=product.related_products}}
-  </div>
-
-  {{> core/structured-data/product}}
-  {{> core/structured-data/product-reviews}}
-
+    <div class="main full">
+        <aside class="page-sidebar">
+            {{> components/common/sidebar}}
+        </aside>
+        <div class="main-content">
+            {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+            {{#each product.shipping_messages}}
+                {{> components/common/alert-info message}}
+            {{/each}}
+            <div itemscope itemtype="http://schema.org/Product">
+                {{> components/products/product-view schema=true}}
+                {{#if product.videos.list.length}}
+                    {{> components/products/videos product.videos}}
+                {{/if}}
+                {{#if settings.show_product_reviews}}
+                    {{> components/products/reviews reviews=product.reviews product=product urls=urls}}
+                {{/if}}
+                <div class="yotpo placeholder"></div>
+                <script type="text/javascript">
+                    //<![CDATA[
+                    //var div = document.createElement("div");
+                    var div = document.getElementsByClassName('placeholder')[0];
+                    div.setAttribute('class', 'yotpo yotpo-main-widget');
+                    div.setAttribute('data-product-id',"{{product.id}}");
+                    div.setAttribute('data-name',"{{product.title}}");
+                    div.setAttribute('data-url', document.URL);
+                    div.setAttribute('data-description',"");
+                    div.setAttribute('data-image-url', "{{product.main_image}}");
+                    //document.getElementsByClassName('placeholder')[0].innerHTML = div.;
+                    //]]>
+                </script>
+            </div>
+        </div>
+    </div>
 {{/partial}}
 {{> layout/base}}

@@ -1,75 +1,49 @@
-{{!
-  @param sort (string)
-         The currently active sorting method.
+<div id="facetedSearch" class="facetedSearch sidebarBlock">
+    {{> components/faceted-search/selected-facets this.selected}}
 
-  @param clear_url (string)
-         A URL for the current page, without any filters applied.
+    <a href="#facetedSearch-navList" role="button" class="facetedSearch-toggle toggleLink" data-collapsible>
+        <span class="facetedSearch-toggle-text">
+            {{#if facets.length '>' 2}}
+                {{lang 'search.faceted.browse-by'}} {{ join (pluck facets 'title') ', ' limit=2 }} &amp; {{ toLowerCase (lang 'search.faceted.more') }}
+            {{/if}}
 
-  @param subcategories (array)
-         A list of child categories.
+            {{#if facets.length '<=' 2}}
+                {{lang 'search.faceted.browse-by'}} {{ join (pluck facets 'title') ', ' lastSeparator=' & ' }}
+            {{/if}}
+        </span>
 
-  @param facets_enabled (bool)
-         True if the faceted search feature is enabled, false otherwise.
+        <span class="facetedSearch-toggle-indicator">
+            <span class="toggleLink-text toggleLink-text--on">
+                {{lang 'search.faceted.hide-filters'}}
 
-  @param facets (array)
-         The enabed facets.
+                <i class="icon" aria-hidden="true">
+                    <svg><use xlink:href="#icon-keyboard-arrow-up"/></svg>
+                </i>
+            </span>
 
-  @param facets_selected (array)
-         The currently selected facet filters.
+            <span class="toggleLink-text toggleLink-text--off">
+                {{lang 'search.faceted.show-filters'}}
 
-  @param shop_by_price (array)
-         A list of price ranges to filter by.
+                <i class="icon" aria-hidden="true">
+                    <svg><use xlink:href="#icon-keyboard-arrow-down"/></svg>
+                </i>
+            </span>
+        </span>
+    </a>
 
-  @param shop_by_brand (array)
-         A list of brands to filter by.
-}}
-<div class="sidebar-filters-container" data-filters-container>
-
-  <div class="filters" data-filters>
-    {{! Selected Facets }}
-
-    {{#if subcategories}}
-      {{> components/faceted-search/subcategories
-        categories=subcategories
-      }}
-    {{/if}}
-
-    {{! Faceted Search }}
-
-    {{#if facets_enabled}}
-      {{#each facets}}
-        {{#if visible}}
-          {{#if items.length}}
-            <div class="filter filter-{{type}}">
-              <h2 class="sidebar-filter-title filter-title">{{title}}</h2>
-              {{{dynamicComponent 'components/faceted-search/facets'}}}
+    {{#any facets visible=true}}
+        <div
+            id="facetedSearch-navList"
+            class="facetedSearch-navList blocker-container">
+            <div class="accordion accordion--navList">
+                {{#each facets}}
+                    {{#if visible}}
+                        {{{dynamicComponent 'components/faceted-search/facets'}}}
+                    {{/if}}
+                {{/each}}
             </div>
-          {{/if}}
 
-          {{#if facet '===' 'price'}}
-            <div class="filter filter-{{type}}">
-              <h2 class="sidebar-filter-title filter-title">{{title}}</h2>
-              {{{dynamicComponent 'components/faceted-search/facets'}}}
-            </div>
-          {{/if}}
-        {{/if}}
-      {{/each}}
-
-    {{! Regular Filters }}
-    {{else}}
-      {{#if shop_by_brand.length}}
-        {{> components/faceted-search/shop-by-brand
-          shop_by_brand=shop_by_brand
-        }}
-      {{/if}}
-
-      {{#if shop_by_price.length}}
-        {{> components/faceted-search/shop-by-price
-          shop_by_price=shop_by_price
-          clear_url=clear_url
-        }}
-      {{/if}}
-    {{/if}}
-  </div>
-
+            <div class="blocker" style="display: none;"></div>
+        </div>
+    {{/any}}
 </div>
