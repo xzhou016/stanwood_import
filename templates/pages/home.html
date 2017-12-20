@@ -19,7 +19,8 @@ blog:
   {{#if carousel}}
     {{inject 'carouselDelay' carousel.swap_frequency}}
   {{/if}}
-
+  {{snippet 'home_content'}}
+  {{> components/home/home-welcome}}
   {{#if products.featured}}
     {{> components/product/products-featured products=products.featured theme_settings=theme_settings}}
   {{/if}}
