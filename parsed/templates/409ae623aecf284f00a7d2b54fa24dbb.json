@@ -1,1 +1,0 @@
-{"components/refine-toggle":"<button class=\"refine-icon\" data-refine-toggle>\n  <svg class=\"refine-toggle-icon\" title=\"Display product filters\" role=\"img\">\n    <use xlink:href=\"#icon-refine\"></use>\n  </svg>\n  <span class=\"refine-toggle-label\">{{lang 'filter.refine'}}</span>\n</button>\n"}

@@ -1,1 +1,0 @@
-{"components/header/nav-mobile-toggle":"<button class=\"nav-mobile-toggle\" data-nav-mobile-toggle>\n   <svg class=\"nav-mobile-icon\" title=\"Open mobile menu\" role=\"img\">\n    <use xlink:href=\"#icon-hamburger\"></use>\n  </svg>\n</button>\n"}

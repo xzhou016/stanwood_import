@@ -1,1 +1,0 @@
-{"components/common/body-classes":"{{page_type}}\n{{#unless in_production}}dev-environment{{/unless}}\n{{#any shipping_messages cart.status_messages product.shipping_messages}}has-promos{{/any}}"}
